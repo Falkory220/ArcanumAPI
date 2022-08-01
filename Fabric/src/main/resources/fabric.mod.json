@@ -9,9 +9,14 @@
       "Falkory"
     ],
     "contact": {
-      "homepage": "https://fabricmc.net/",
+      "homepage": "https://github.com/Falkory220/ArcanumAPI",
       "sources": "https://github.com/Falkory220/ArcanumAPI",
       "issues": "https://github.com/Falkory220/ArcanumAPI/issues"
+    },
+    "custom": {
+      "modmenu": {
+        "badges": ["library"]
+      }
     },
   
     "license": "CC0-1.0",
