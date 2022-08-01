@@ -10,7 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-public class CommonClass {
+public class ArcanumCommon {
 
     // This method serves as an initialization hook for the mod. The vanilla
     // game has no mechanism to load tooltip listeners so this must be

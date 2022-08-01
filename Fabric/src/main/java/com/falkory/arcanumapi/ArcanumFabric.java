@@ -3,7 +3,7 @@ package com.falkory.arcanumapi;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 
-public class ArcanumAPI implements ModInitializer {
+public class ArcanumFabric implements ModInitializer {
     
     @Override
     public void onInitialize() {
@@ -14,10 +14,10 @@ public class ArcanumAPI implements ModInitializer {
 
         // Use Fabric to bootstrap the Common mod.
         Constants.LOG.info("Hello Fabric world!");
-        CommonClass.init();
+        ArcanumCommon.init();
         
         // Some code like events require special initialization from the
         // loader specific code.
-        ItemTooltipCallback.EVENT.register(CommonClass::onItemTooltip);
+        ItemTooltipCallback.EVENT.register(ArcanumCommon::onItemTooltip);
     }
 }

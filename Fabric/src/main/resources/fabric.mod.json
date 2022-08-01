@@ -1,29 +1,30 @@
 {
     "schemaVersion": 1,
-    "id": "modid",
+    "id": "arcanumapi",
     "version": "${version}",
   
-    "name": "Example Mod",
-    "description": "This is an example description! Tell everyone what your mod is about!",
+    "name": "Arcanum API",
+    "description": "An X-plat API for presentable, data-driven mod documentation based on the Arcana project. \nFabric build.",
     "authors": [
-      "Me!"
+      "Falkory"
     ],
     "contact": {
       "homepage": "https://fabricmc.net/",
-      "sources": "https://github.com/FabricMC/fabric-example-mod"
+      "sources": "https://github.com/Falkory220/ArcanumAPI",
+      "issues": "https://github.com/Falkory220/ArcanumAPI/issues"
     },
   
     "license": "CC0-1.0",
-    "icon": "assets/modid/icon.png",
+    "icon": "icon_fabric.png",
   
     "environment": "*",
     "entrypoints": {
       "main": [
-        "com.example.examplemod.ExampleMod"
+        "com.falkory.arcanumapi.ArcanumFabric"
       ]
     },
     "mixins": [
-      "modid.mixins.json"
+      "arcanumapi.mixins.json"
     ],
   
     "depends": {
