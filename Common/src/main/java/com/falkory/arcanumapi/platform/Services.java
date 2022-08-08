@@ -1,6 +1,6 @@
 package com.falkory.arcanumapi.platform;
 
-import com.falkory.arcanumapi.Constants;
+import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
@@ -14,7 +14,7 @@ public class Services {
         final T loadedService = ServiceLoader.load(clazz)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        Constants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        ArcanumAPI.LOG.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }

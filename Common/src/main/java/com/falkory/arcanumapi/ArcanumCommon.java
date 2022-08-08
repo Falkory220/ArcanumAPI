@@ -1,5 +1,6 @@
 package com.falkory.arcanumapi;
 
+import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.platform.Services;
 import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
@@ -17,8 +18,8 @@ public class ArcanumCommon {
     // invoked from a mod loader specific project like Forge or Fabric.
     public static void init() {
 
-        Constants.LOG.info("Hello from Common init on {}! we are currently in a {} environment!", Services.PLATFORM.getPlatformName(), Services.PLATFORM.isDevelopmentEnvironment() ? "development" : "production");
-        Constants.LOG.info("Diamond Item >> {}", Registry.ITEM.getKey(Items.DIAMOND));
+        ArcanumAPI.LOG.info("Hello from Common init on {}! we are currently in a {} environment!", Services.PLATFORM.getPlatformName(), Services.PLATFORM.isDevelopmentEnvironment() ? "development" : "production");
+        ArcanumAPI.LOG.info("Diamond Item >> {}", Registry.ITEM.getKey(Items.DIAMOND));
     }
 
     // This method serves as a hook to modify item tooltips. The vanilla game

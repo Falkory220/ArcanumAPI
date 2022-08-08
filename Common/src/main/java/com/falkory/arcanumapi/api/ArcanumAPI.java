@@ -1,9 +1,9 @@
-package com.falkory.arcanumapi;
+package com.falkory.arcanumapi.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Constants {
+public class ArcanumAPI {
 
 	public static final String MOD_ID = "arcanumapi";
 	public static final String MOD_NAME = "Arcanum API";

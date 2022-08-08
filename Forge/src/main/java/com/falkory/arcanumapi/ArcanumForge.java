@@ -1,7 +1,7 @@
 package com.falkory.arcanumapi;
 
+import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.item.BookItems;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -12,7 +12,7 @@ import net.minecraftforge.registries.*;
 
 import java.util.function.BiConsumer;
 
-@Mod(Constants.MOD_ID)
+@Mod(ArcanumAPI.MOD_ID)
 public class ArcanumForge {
     
     public ArcanumForge() {
@@ -22,7 +22,7 @@ public class ArcanumForge {
         // project.
     
         // Use Forge to bootstrap the Common mod.
-        Constants.LOG.info("Hello Forge world!");
+        ArcanumAPI.LOG.info("Hello Forge world!");
         ArcanumCommon.init();
     
         // Some code like events require special initialization from the

@@ -13,15 +13,17 @@ public class BookItems {
     public static final Item.Properties bookProperties;
     public static final Map<ResourceLocation, Item> REGISTRY_BOOKSHELF = new HashMap<>();
 
-    public static final Item ARCANUM;
+    public static final Item ARCANUM_ITEM;
 
     public static void aLittleIdentity(){} //(it never hurt nobody)
 
-    /**Adds a provided item to the arcanum api bookshelf, for later registry.*/
+    /**Adds a provided Item to the arcanum api bookshelf, for later registry.*/
     public static Item stockBook(ResourceLocation name, Item item){
         REGISTRY_BOOKSHELF.put(name, item);
         return item;
     }
+
+    /**Adds a provided BookItem to the arcanum api bookshelf*/
 
     //Our book register event, passed a consumer from the current loader-specific init class
     public static void releaseBooks(BiConsumer<Item, ResourceLocation> registrar){
@@ -32,6 +34,6 @@ public class BookItems {
 
     static {
         bookProperties = new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.UNCOMMON);
-        ARCANUM = stockBook(new ResourceLocation("arcanumapi","arcanum"), new Item(bookProperties));
+        ARCANUM_ITEM = stockBook(new ResourceLocation("arcanumapi","arcanum"), new BookItem(bookProperties, new ResourceLocation("arcanumapi", "arcanum")));
     }
 }

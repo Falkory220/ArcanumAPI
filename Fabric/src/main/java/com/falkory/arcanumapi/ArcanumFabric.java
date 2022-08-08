@@ -1,5 +1,6 @@
 package com.falkory.arcanumapi;
 
+import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.item.BookItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
@@ -18,7 +19,7 @@ public class ArcanumFabric implements ModInitializer {
         // project.
 
         // Use Fabric to bootstrap the Common mod.
-        Constants.LOG.info("Hello Fabric world!");
+        ArcanumAPI.LOG.info("Hello Fabric world!");
         ArcanumCommon.init();
         registryStuff();
         
