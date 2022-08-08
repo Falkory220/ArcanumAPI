@@ -5,6 +5,7 @@ import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookMain;
 import com.falkory.arcanumapi.book.Books;
 import com.falkory.arcanumapi.util.Identifiable;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -51,16 +52,14 @@ public class BookItem extends Item {
             BookMain signybook = Books.BOOKS.getOrDefault(ArcanumCommon.AmId(seepy.getMessage(0, true).getString()), new BookMain(ArcanumCommon.AmId("notfound"), null));
             ArcanumAPI.LOG.info(signybook.key().toString());
             if(!"notfound".equals(signybook.key().getPath())){ // if we're in a real book
-                signybook.getTabs().forEach(tab -> {
-                    ArcanumAPI.LOG.info("  " + tab.key().toString());
-                });
+                signybook.getTabs().forEach(tab -> ArcanumAPI.LOG.info("  " + tab.key().toString()));
             }
         }
         return super.useOn(nya);
     }
 
     private static <E extends Identifiable> void nya(E nya){
-        if(nya != null){ArcanumAPI.LOG.info("didn't find the nya"); return;}
+        if(nya == null){ArcanumAPI.LOG.info("didn't find the nya"); return;}
         ArcanumAPI.LOG.info(nya.key().toString());
     }
 }

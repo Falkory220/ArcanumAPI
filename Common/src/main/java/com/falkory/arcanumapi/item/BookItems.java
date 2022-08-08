@@ -23,8 +23,6 @@ public class BookItems {
         return item;
     }
 
-    /**Adds a provided BookItem to the arcanum api bookshelf*/
-
     //Our book register event, passed a consumer from the current loader-specific init class
     public static void releaseBooks(BiConsumer<Item, ResourceLocation> registrar){
         for (var book : REGISTRY_BOOKSHELF.entrySet()){
