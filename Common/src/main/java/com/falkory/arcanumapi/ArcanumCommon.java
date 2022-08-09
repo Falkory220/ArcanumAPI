@@ -1,17 +1,21 @@
 package com.falkory.arcanumapi;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
-import com.falkory.arcanumapi.platform.Services;
-import net.minecraft.core.Registry;
+import com.falkory.arcanumapi.book.BookLoader;
+import com.falkory.arcanumapi.book.BookPage;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
+/** Our shared main class.
+ *  this mostly contains methods delegated from loader-specific classes
+ * @see ArcanumForge forge initialization
+ * @see ArcanumFabric fabric initialization
+ * */
 public class ArcanumCommon {
 
     public static ResourceLocation AmId(String id){
@@ -21,9 +25,7 @@ public class ArcanumCommon {
     // game has no mechanism to load tooltip listeners so this must be
     // invoked from a mod loader specific project like Forge or Fabric.
     public static void init() {
-
-        ArcanumAPI.LOG.info("Hello from Common init on {}! we are currently in a {} environment!", Services.PLATFORM.getPlatformName(), Services.PLATFORM.isDevelopmentEnvironment() ? "development" : "production");
-        ArcanumAPI.LOG.info("Diamond Item >> {}", Registry.ITEM.getKey(Items.DIAMOND));
+        BookPage.init(); //adds our page types to the factory list
     }
 
     // This method serves as a hook to modify item tooltips. The vanilla game
@@ -41,5 +43,9 @@ public class ArcanumCommon {
                 tooltip.add(Component.literal("Saturation: " + food.getSaturationModifier()));
             }
         }
+    }
+
+    public static BookLoader startBookLoader() {
+        return ArcanumAPI.bookLoader = new BookLoader();
     }
 }

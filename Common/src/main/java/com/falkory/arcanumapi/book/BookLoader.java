@@ -31,7 +31,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
     private static Map<ResourceLocation, JsonArray> nodeQueue = new LinkedHashMap<>();
 
 
-    public BookLoader() {super(GSON, "arcanumbooks");}
+    public BookLoader() {super(GSON, "arcanumbooks"); LOG.info("Made a new BookLoader!");}
 
     //notes: removed prefixes from source
     private static void applyBooksArray(ResourceLocation rl, JsonArray books){
@@ -234,6 +234,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
 
     @Override @ParametersAreNonnullByDefault
     protected void apply(Map<ResourceLocation, JsonElement> jobject, ResourceManager manager, ProfilerFiller prof) {
+        LOG.info("BookLoader Running !");
         bookQueue.clear();
         tabQueue.clear();
         nodeQueue.clear();

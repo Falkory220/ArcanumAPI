@@ -45,10 +45,6 @@ public class BookMain implements IDisableable, Identifiable, AbstractBindable<Bo
         return streamNodes().filter(entry -> entry.key().equals(key)).findFirst().orElse(null);
     }
 
-    public ResourceLocation getKey(){
-        return key;
-    }
-
     public Map<ResourceLocation, BookTab> getCategoriesMap(){
         return Collections.unmodifiableMap(tabs);
     }

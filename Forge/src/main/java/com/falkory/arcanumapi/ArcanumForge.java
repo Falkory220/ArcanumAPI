@@ -4,6 +4,7 @@ import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.item.BookItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -12,6 +13,12 @@ import net.minecraftforge.registries.*;
 
 import java.util.function.BiConsumer;
 
+/** ArcanumAPI's main class for the forge mod loader
+ *  this mostly contains methods to safely delegate to {@link ArcanumCommon}
+ * @see ArcanumCommon delegated tasks
+ * @see ArcanumFabric fabric analogue of this class
+ * */
+//"hey! did you just add this here to quick link between the three in dev" heck yeah I did
 @Mod(ArcanumAPI.MOD_ID)
 public class ArcanumForge {
     
@@ -29,6 +36,7 @@ public class ArcanumForge {
         // loader specific code.
         MinecraftForge.EVENT_BUS.addListener(this::onItemTooltip);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onRegistry);
+        MinecraftForge.EVENT_BUS.addListener(this::addReloadListeners);
     }
     
     // This method exists as a wrapper for the code in the Common project.
@@ -45,6 +53,11 @@ public class ArcanumForge {
             BookItems.releaseBooks(registrar(nya));
         });
     }
+    @SubscribeEvent
+    public void addReloadListeners(AddReloadListenerEvent event){
+        event.addListener(ArcanumCommon.startBookLoader());
+    }
+
 
     private static <T> BiConsumer<T, ResourceLocation> registrar(RegisterEvent.RegisterHelper<T> hinderer){
         return (t, id) -> hinderer.register(id, t);

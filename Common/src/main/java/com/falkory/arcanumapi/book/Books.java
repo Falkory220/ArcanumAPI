@@ -16,8 +16,6 @@ public class Books {
         return new ArrayList<>(BOOKS.values());
     }
 
-
-
     public static Stream<BookTab> streamTabs(){
         return BOOKS.values().stream().flatMap(BookMain::streamCategories);
     }
