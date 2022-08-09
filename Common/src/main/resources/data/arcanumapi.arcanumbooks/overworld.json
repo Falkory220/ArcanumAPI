@@ -1,0 +1,25 @@
+{
+  "entries": [
+    {
+      "key": "overworld:root",
+      "name": "reasearch.wood.root",
+      "desc": "research.wood.root.desc",
+      "icons": [
+        "minecraft:oak_log"
+      ],
+      "category": "arcanumapi:overworld",
+      "parents": [],
+      "meta": [
+        "spiky_base"
+      ],
+      "x": 0,
+      "y": 0,
+      "sections": [
+        {
+          "type": "string,",
+          "content": "research.wood.root.text"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+ "books": [
+   {
+     "key": "arcanumapi:arcanum",
+     "prefix": "arcanum"
+   }
+ ],
+  "categories": [
+    {
+      "key": "arcanumapi:overworld",
+      "in": "arcanumapi:arcanum",
+      "icon": "minecraft:dirt",
+      "name": "research.arcanumapi.category.overworld",
+      "bg": "arcanumapi:book/bg1.png"
+    }
+  ]
+}
