@@ -1,11 +1,9 @@
 package com.falkory.arcanumapi.item;
 
-import com.falkory.arcanumapi.ArcanumCommon;
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookMain;
 import com.falkory.arcanumapi.book.Books;
 import com.falkory.arcanumapi.util.Identifiable;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +17,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SignBlockEntity;
+
+import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 
 public class BookItem extends Item {
     ResourceLocation book;
@@ -49,7 +49,7 @@ public class BookItem extends Item {
             SignBlockEntity seepy = (SignBlockEntity) eepy;
             ArcanumAPI.LOG.info(seepy.getMessage(0, true).getString());
             //prints the book if we have it at <signfirstline>:<signsecondline>. this shouldn't be in a release ever uhhhh
-            BookMain signybook = Books.BOOKS.getOrDefault(new ResourceLocation(seepy.getMessage(0, true).getString(), seepy.getMessage(1, true).getString()), new BookMain(ArcanumCommon.AmId("notfound"), null));
+            BookMain signybook = Books.BOOKS.getOrDefault(new ResourceLocation(seepy.getMessage(0, true).getString(), seepy.getMessage(1, true).getString()), new BookMain(AmId("notfound"), null));
             ArcanumAPI.LOG.info(signybook.key().toString());
             if(!"notfound".equals(signybook.key().getPath())){ // if we're in a real book
                 signybook.getTabs().forEach(tab -> ArcanumAPI.LOG.info("  " + tab.key().toString()));

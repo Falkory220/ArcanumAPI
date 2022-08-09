@@ -3,6 +3,7 @@ package com.falkory.arcanumapi;
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookLoader;
 import com.falkory.arcanumapi.book.BookPage;
+import com.falkory.arcanumapi.book.Requirement;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
@@ -25,7 +26,8 @@ public class ArcanumCommon {
     // game has no mechanism to load tooltip listeners so this must be
     // invoked from a mod loader specific project like Forge or Fabric.
     public static void init() {
-        BookPage.init(); //adds our page types to the factory list
+        BookPage.init(); // adds our page types to the factory list
+        Requirement.init(); // nya
     }
 
     // This method serves as a hook to modify item tooltips. The vanilla game

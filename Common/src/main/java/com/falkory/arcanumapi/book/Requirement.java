@@ -2,6 +2,7 @@ package com.falkory.arcanumapi.book;
 
 import com.falkory.arcanumapi.book.content.requirements.ItemRequirement;
 import com.falkory.arcanumapi.book.content.requirements.ItemTagRequirement;
+import com.falkory.arcanumapi.book.content.requirements.XpRequirement;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -43,22 +44,15 @@ public abstract class Requirement {
         // item and item tag requirement creation is handled by ResearchLoader -- an explicit form may be useful though.
         deserializers.put(ItemRequirement.TYPE, compound -> new ItemRequirement(Registry.ITEM.get(new ResourceLocation(compound.getString("itemType")))));
         deserializers.put(ItemTagRequirement.TYPE, compound -> new ItemTagRequirement(new ResourceLocation(compound.getString("itemTag"))));
-
-        /*
-         *Commenting out for now to get to a basic working state todo requirement factories
-         *
-
+        // everything else needs a factory registered
         factories.put(XpRequirement.TYPE, __ -> new XpRequirement());
         deserializers.put(XpRequirement.TYPE, __ -> new XpRequirement());
 
-        factories.put(PuzzleRequirement.TYPE, params -> new PuzzleRequirement(new ResourceLocation(params.get(0))));
-        deserializers.put(PuzzleRequirement.TYPE, compound -> new PuzzleRequirement(new ResourceLocation(compound.getString("puzzle"))));
-
+        /*
+         * todo advancement and general "node complete" requirements
+         *
         factories.put(ResearchCompletedRequirement.TYPE, params -> new ResearchCompletedRequirement(params.get(0)));
         deserializers.put(ResearchCompletedRequirement.TYPE, compound -> new ResearchCompletedRequirement(compound.getString("requirement")));
-
-        factories.put(PuzzlesCompletedRequirement.TYPE, __ -> new PuzzlesCompletedRequirement());
-        deserializers.put(PuzzlesCompletedRequirement.TYPE, __ -> new PuzzlesCompletedRequirement());
          *
          */
     }
