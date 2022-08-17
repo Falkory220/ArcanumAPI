@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class BookTab implements Identifiable, AbstractBindable<BookNode> {
+public class BookTab implements Identifiable {
 
     protected Map<ResourceLocation, BookNode> nodes;
     private BookMain in; //should this really be needed ?
@@ -82,10 +82,5 @@ public class BookTab implements Identifiable, AbstractBindable<BookNode> {
 
     public Map<ResourceLocation, BookNode> getNodes() {
         return nodes;
-    }
-
-    @Override
-    public void setHeld(Map<ResourceLocation, BookNode> map) {
-        this.nodes = map;
     }
 }

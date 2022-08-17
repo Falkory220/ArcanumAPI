@@ -35,7 +35,8 @@ public class ArcanumFabric implements ModInitializer {
         
         // Some code like events require special initialization from the
         // loader specific code.
-        ItemTooltipCallback.EVENT.register(ArcanumCommon::onItemTooltip);
+        // note : this actually breaks on a dedicated server, move to a dedicated client method
+        // ItemTooltipCallback.EVENT.register(ArcanumCommon::onItemTooltip);
     }
 
     public static void addReloadListener(){

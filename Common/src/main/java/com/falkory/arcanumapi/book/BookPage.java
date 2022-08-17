@@ -2,7 +2,7 @@ package com.falkory.arcanumapi.book;
 
 import com.falkory.arcanumapi.book.content.Pin;
 import com.falkory.arcanumapi.book.content.StringSection;
-import com.falkory.arcanumapi.book.content.requirements.CraftingSection;
+import com.falkory.arcanumapi.book.content.CraftingSection;
 import com.falkory.arcanumapi.util.Identifiable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

@@ -1,4 +1,4 @@
-package com.falkory.arcanumapi.book.content.requirements;
+package com.falkory.arcanumapi.book.content;
 
 import com.falkory.arcanumapi.book.content.AbstractCraftingSection;
 import net.minecraft.resources.ResourceLocation;

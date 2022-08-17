@@ -36,6 +36,10 @@ public class Books {
         return streamNodes().collect(Collectors.toList());
     }
 
+    public static BookNode getNode(ResourceLocation key){
+        return streamNodes().filter(x -> x.key().equals(key)).findFirst().orElse(null);
+    }
+
     public static Stream<BookNode> streamChildrenOf(BookNode parent){
         return streamNodes().filter(n -> n.parents().stream().anyMatch(it -> it.entry.equals(parent.key())));
     }
@@ -44,8 +48,5 @@ public class Books {
         return streamChildrenOf(parent).collect(Collectors.toList());
     }
 
-    public static BookNode getNode(ResourceLocation key){
-        return streamNodes().filter(x -> x.key().equals(key)).findFirst().orElse(null);
-    }
 
 }

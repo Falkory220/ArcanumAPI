@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class BookMain implements IDisableable, Identifiable, AbstractBindable<BookTab> {
+public class BookMain implements IDisableable, Identifiable {
 
     protected Map<ResourceLocation, BookTab> tabs;
     private ResourceLocation key;
@@ -48,9 +48,6 @@ public class BookMain implements IDisableable, Identifiable, AbstractBindable<Bo
     public Map<ResourceLocation, BookTab> getCategoriesMap(){
         return Collections.unmodifiableMap(tabs);
     }
-
-    @Override
-    public void setHeld(Map<ResourceLocation, BookTab> map) {}
 
     @Override
     public ResourceLocation key() {
