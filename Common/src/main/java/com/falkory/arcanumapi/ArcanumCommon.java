@@ -4,6 +4,7 @@ import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookLoader;
 import com.falkory.arcanumapi.book.BookPage;
 import com.falkory.arcanumapi.book.Requirement;
+import com.falkory.arcanumapi.book.layers.TabLayer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
@@ -26,7 +27,9 @@ public class ArcanumCommon {
     // game has no mechanism to load tooltip listeners so this must be
     // invoked from a mod loader specific project like Forge or Fabric.
     public static void init() {
-        BookPage.init(); // adds our page types to the factory list
+        // adding default book contents to the relevant factory lists
+        BookPage.init();
+        TabLayer.init();
         Requirement.init(); // nya
     }
 

@@ -16,7 +16,7 @@ public class ClientGuiUtils {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
-        GuiComponent.blit(stack, x, y, texX, texY, width, height, xscl, yscl);
+        GuiComponent.blit(stack, x, y, Math.nextDown(texX), Math.nextDown(texY), width, height, xscl, yscl);
     }
     public static void drawSprite(PoseStack stack, int x, int y, float texX, float texY, int width, int height, ResourceLocation texture){
         drawDualScaledSprite(stack, x, y,texX, texY, width, height, 256, 256, texture);

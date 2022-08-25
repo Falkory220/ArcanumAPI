@@ -5,13 +5,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.resources.ResourceLocation;
 
-import static com.falkory.arcanumapi.client.gui.ClientGuiUtils.*;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 
 public abstract class AbstractBookScreen extends Screen {
-    private BookMain book;
-    private Screen parentScreen;
+    private final BookMain book;
+    private final Screen parentScreen;
     //List<PinButton> pinButtons;
 
     protected AbstractBookScreen(BookMain book, Screen parentScreen) {
@@ -26,11 +26,8 @@ public abstract class AbstractBookScreen extends Screen {
         return book;
     }
 
+    @ParametersAreNonnullByDefault
     @Override public void render(PoseStack stack, int $$1, int $$2, float $$3) {
-       // drawSprite(stack, 192, 3, 0, 0, 192, 192, new ResourceLocation("textures/gui/book.png"));
-        //drawScaledSprite(stack, 0, 128, 0, 0,  192, 192, 0.25f, new ResourceLocation("textures/gui/book.png"));
-        //drawString(stack, this.font, "hey lily look at this !!", 192+40, 20, 20);
-        //drawString(stack, this.font, "nya", 10, 10, 256);
         super.render(stack, $$1, $$2, $$3);
     }
 
