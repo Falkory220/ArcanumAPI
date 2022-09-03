@@ -5,18 +5,17 @@ import com.falkory.arcanumapi.item.BookItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.*;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 import java.util.function.BiConsumer;
 
-/** ArcanumAPI's main class for the forge mod loader
- *  this mostly contains methods to safely delegate to {@link ArcanumCommon}
- * @see ArcanumCommon delegated tasks
- * @see ArcanumFabric fabric analogue of this class
+/** ArcanumAPI's main class for the forge mod loader. <br>
+ * This class mostly contains methods to safely delegate to {@link ArcanumCommon}
+ * @see ArcanumFabric ArcanumFabric (Fabric analogue of this class)
  * */
 //"hey! did you just add this here to quick link between the three in dev" heck yeah I did
 @Mod(ArcanumAPI.MOD_ID)
@@ -34,17 +33,8 @@ public class ArcanumForge {
     
         // Some code like events require special initialization from the
         // loader specific code.
-        MinecraftForge.EVENT_BUS.addListener(this::onItemTooltip);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onRegistry);
         MinecraftForge.EVENT_BUS.addListener(this::addReloadListeners);
-    }
-    
-    // This method exists as a wrapper for the code in the Common project.
-    // It takes Forge's event object and passes the parameters along to
-    // the Common listener.
-    private void onItemTooltip(ItemTooltipEvent event) {
-
-        ArcanumCommon.onItemTooltip(event.getItemStack(), event.getFlags(), event.getToolTip());
     }
 
     @SubscribeEvent

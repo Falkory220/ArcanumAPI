@@ -43,17 +43,17 @@ public class BookItem extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext nya) {
+        if(nya.getPlayer() != null) {
+            nya.getItemInHand();
+            BlockEntity eepy = nya.getLevel().getBlockEntity(nya.getClickedPos());
+            if (eepy != null && eepy.getType() == BlockEntityType.SIGN) {
+                SignBlockEntity seepy = (SignBlockEntity) eepy;
 
-        BlockEntity eepy = nya.getLevel().getBlockEntity(nya.getClickedPos());
-        if(eepy != null && eepy.getType() == BlockEntityType.SIGN) {
-            SignBlockEntity seepy = (SignBlockEntity) eepy;
-            ArcanumAPI.LOG.info(seepy.getMessage(0, true).getString());
-
-            //prints the book if we have it at <signfirstline>:<signsecondline>. this shouldn't be in a release ever uhhhh
-            BookMain signybook = Books.BOOKS.getOrDefault(new ResourceLocation(seepy.getMessage(0, true).getString(), seepy.getMessage(1, true).getString()), new BookMain(AmId("notfound"), null));
-            ArcanumAPI.LOG.info(signybook.key().toString());
-            if(!"notfound".equals(signybook.key().getPath())){ // if we're in a real book
-                signybook.getTabs().forEach(tab -> ArcanumAPI.LOG.info("  " + tab.key().toString()));
+                //prints the book if we have it at <signfirstline>:<signsecondline>. this shouldn't be in a release ever uhhhh
+                BookMain signybook = Books.BOOKS.getOrDefault(new ResourceLocation(seepy.getMessage(0, true).getString(), seepy.getMessage(1, true).getString()), new BookMain(AmId("notfound"), null));
+                if (!"notfound".equals(signybook.key().getPath())) { // if we're in a real book
+                    SplitUtils.openBookSafe(nya.getPlayer(), signybook.key(), nya.getItemInHand());
+                }
             }
         }
         return super.useOn(nya);

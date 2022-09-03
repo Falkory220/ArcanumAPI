@@ -10,7 +10,7 @@ public class Books {
 
     //now it knows why they don't use registries. gosh todo reach out about this?
     public static ArrayList<ResourceLocation> DISABLED = new ArrayList<>();
-    public static Map<ResourceLocation, BookMain> BOOKS = new LinkedHashMap<>();
+    public static Map<ResourceLocation, BookMain> BOOKS = new LinkedHashMap<>(); //TODO make private with accessor?
 
     public static List<BookMain> getBooks(){
         return new ArrayList<>(BOOKS.values());

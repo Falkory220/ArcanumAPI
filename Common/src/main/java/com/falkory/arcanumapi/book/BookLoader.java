@@ -3,7 +3,7 @@ package com.falkory.arcanumapi.book;
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.content.requirements.ItemRequirement;
 import com.falkory.arcanumapi.book.content.requirements.ItemTagRequirement;
-import com.falkory.arcanumapi.book.layers.TabLayer;
+import com.falkory.arcanumapi.book.layers.BookLayer;
 import com.google.gson.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -64,19 +64,19 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
                 String name = tab.get("name").getAsString();
                 ResourceLocation requirement = tab.has("requires") ? new ResourceLocation(tab.get("requires").getAsString()) : null;
                 BookMain in = Books.BOOKS.get(new ResourceLocation(tab.get("in").getAsString()));
-                BookTab tabObject = new BookTab(new LinkedHashMap<>(), key, icon, bg, requirement, name, in);
+                BookTab tabObject = new BookTab(new LinkedHashMap<>(), key, icon, requirement, name, in);
                 if(tab.has("bgs")){
                     JsonArray layers = tab.getAsJsonArray("bgs");
                     for(JsonElement layerElem : layers){
                         JsonObject layerObj = layerElem.getAsJsonObject();
-                        TabLayer layer = TabLayer.makeLayer(
+                        BookLayer layer = BookLayer.makeLayer(
                           new ResourceLocation(layerObj.getAsJsonPrimitive("type").getAsString()),
                           layerObj,
                           rl,
                           layerObj.getAsJsonPrimitive("speed").getAsFloat(),
                           layerObj.has("vanishZoom") ? layerObj.getAsJsonPrimitive("vanishZoom").getAsFloat() : -1);
                         if(layer != null)
-                            tabObject.getBgs().add(layer);
+                            tabObject.getLayers().add(layer);
                     }
                 }
                 in.tabs.putIfAbsent(key, tabObject);
@@ -84,6 +84,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
         }
     }
 
+    //TODO: call for NodeLayers instead of all tabs.
     private static void applyNodesArray(ResourceLocation rl, JsonArray nodes){
         for(JsonElement entryElement : nodes){
             if(!entryElement.isJsonObject())
@@ -111,7 +112,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
                     meta = StreamSupport.stream(entry.getAsJsonArray("meta").spliterator(), false).map(JsonElement::getAsString).collect(Collectors.toList());
 
                 BookNode entryObject = new BookNode(key, pages, icons, meta, parents, category, name, desc, x, y);
-                category.nodes.putIfAbsent(key, entryObject);
+                //category.nodes.putIfAbsent(key, entryObject); //TODO re-instate. currently the nodes reference is bad because nodes are no longer directly under tabs.
                 pages.forEach(page -> page.node = entryObject.key());
             }
         }

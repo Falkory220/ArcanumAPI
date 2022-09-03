@@ -17,7 +17,7 @@ public class BookItems {
 
     public static void aLittleIdentity(){} //(it never hurt nobody)
 
-    /**Adds a provided Item to the arcanum api bookshelf, for later registry.*/
+    /** Adds a provided Item to the arcanum api bookshelf for later registry. */
     public static Item stockBook(ResourceLocation name, Item item){
         REGISTRY_BOOKSHELF.put(name, item);
         return item;

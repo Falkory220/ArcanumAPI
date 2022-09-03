@@ -2,38 +2,44 @@ package com.falkory.arcanumapi.client.gui;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookMain;
+import com.falkory.arcanumapi.book.BookTab;
+import com.falkory.arcanumapi.book.layers.BookLayer;
+import com.falkory.arcanumapi.book.layers.ImageLayer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
-import static com.falkory.arcanumapi.client.gui.ClientGuiUtils.*;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 import static net.minecraft.util.Mth.abs;
 import static net.minecraft.util.Mth.clamp;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 
-public class BookTabScreen extends AbstractBookScreen{
+public class BookMainScreen extends AbstractBookScreen{
     ItemStack sender;
 
     //this is a funny way to make this persistent across instances alsdkjfhn
-    static float xPan = 0;
-    static float yPan = 0;
-    static float targetZoom = 1.0f;
-    static float zoom = targetZoom;
+    //this is awful probably? todo cry about it later
+    public static float xPan = 0;
+    public static float yPan = 0;
+    public static float targetZoom = 1.0f;
+    public static float zoom = targetZoom;
 
     static final float ZOOM_MULTIPLIER = 2.0f;
 
-    private static float maxPanX;
-    private static float maxPanY;
+    public static float maxPanX;
+    public static float maxPanY;
 
-    private static int minBookX;
-    private static int minBookY;
-    private static int bookWidth;
-    private static int bookHeight;
+    public static int minBookX;
+    public static int minBookY;
+    public static int bookWidth;
+    public static int bookHeight;
 
 
-    public BookTabScreen(BookMain book, Screen parentScreen, ItemStack item) {
+    public BookMainScreen(BookMain book, Screen parentScreen, ItemStack item) {
         super(book, parentScreen);
         this.sender = item;
     }
@@ -67,9 +73,23 @@ public class BookTabScreen extends AbstractBookScreen{
 
         //renderResearchBackground(stack);
         //renderEntries(stack, partialTicks);
-        ResourceLocation bg = new ResourceLocation("arcana","textures/research/eldritch_bg.png");
-        drawBackground(stack, minBookX, minBookY, frameSize, bookWidth, bookHeight, 1.0f, bg);
-        drawBackground(stack, minBookX, minBookY, frameSize, bookWidth, bookHeight, 1.1f, new ResourceLocation("textures/block/glass.png"));
+        //render(stack, partialTicks, minBookX, minBookY, bookWidth, bookHeight, zoom)
+        getBook().getTabs().get(getBook().tabIndex);
+
+        BookLayer mainbg = new ImageLayer("arcana:textures/research/eldritch_bg.png");
+        BookLayer glassoverlay = new ImageLayer("minecraft:textures/block/glass.png", 1.1f);
+
+        Map<Number, BookLayer> testLayers = new HashMap<>();
+        testLayers.put(1, glassoverlay);
+        testLayers.put(0, mainbg);
+
+
+
+        BookTab testTab = new BookTab(testLayers, AmId("test_tab"), AmId("textures/items/arcanum.png"), null, "Test Tab", this.getBook() );
+        testTab.render(stack, this, frameSize, tickDelta);
+
+        //mainbg.render(stack, this, frameSize, tickDelta);
+        //glassoverlay.render(stack, this, frameSize, tickDelta);
 
         // scissors off
         GL11.glDisable(GL_SCISSOR_TEST);
@@ -81,25 +101,6 @@ public class BookTabScreen extends AbstractBookScreen{
     private void drawDebug(PoseStack stack){
         drawString(stack, this.font, "zoom:"+((Float)zoom), 0, 0, 1);
         drawString(stack, this.font, "x:"+xPan+"   y:"+yPan,0,10,1);
-    }
-
-    //todo this should be in ImageLayer,,, later
-    public void drawBackground(PoseStack stack, int x, int y, float drawSize, float drawWidth, float drawHeight, float spd, ResourceLocation texture){
-        float zoomSize = drawSize*zoom;
-        float scaledSize = zoomSize*spd;
-        drawDualScaledSprite(stack, x, y,
-          (((2f * maxPanX * xPan/(zoomSize-drawWidth ))+1)*(scaledSize-drawWidth ))/2f,
-          (((2f * maxPanY * yPan/(zoomSize-drawHeight))+1)*(scaledSize-drawHeight))/2f,
-          width, height,
-          (int)(scaledSize), (int)(scaledSize),
-          texture);
-    }
-
-    public float getXOffset(){
-        return ((width / 2f) * (1 / zoom)) + (xPan / 2f);
-    }
-    public float getYOffset(){
-        return ((height / 2f) * (1 / zoom)) - (yPan / 2f);
     }
 
     @Override public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY){

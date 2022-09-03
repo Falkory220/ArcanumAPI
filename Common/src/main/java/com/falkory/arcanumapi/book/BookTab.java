@@ -1,7 +1,10 @@
 package com.falkory.arcanumapi.book;
 
-import com.falkory.arcanumapi.book.layers.TabLayer;
+import com.falkory.arcanumapi.book.layers.BookLayer;
+import com.falkory.arcanumapi.book.layers.NodeLayer;
+import com.falkory.arcanumapi.client.gui.BookMainScreen;
 import com.falkory.arcanumapi.util.Identifiable;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
@@ -10,42 +13,39 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class BookTab implements Identifiable {
-
-    protected Map<ResourceLocation, BookNode> nodes;
-    private BookMain in; //should this really be needed ?
+    
+    private BookMain in;
     private String name; //TODO should be a translatable, yeah?
     private ResourceLocation key;
 
-    private ResourceLocation icon, bg, requirement;
-    private List<TabLayer> layers = new ArrayList<>();
+    private ResourceLocation icon, requirement;
+    private Map<Number, BookLayer> layers;
 
 
     protected int serializationIndex = 0; //todo dunno what this is but it sound like jank
 
-    public BookTab(Map<ResourceLocation, BookNode> nodes, ResourceLocation key, ResourceLocation icon, ResourceLocation bg, ResourceLocation requirement, String name, BookMain in){
-        this.nodes = nodes;
+    public BookTab(Map<Number, BookLayer> layers, ResourceLocation key, ResourceLocation icon, ResourceLocation requirement, String name, BookMain in){
+        this.layers = layers;
         this.key = key;
         this.requirement = requirement;
         this.in = in;
         this.icon = icon;
         this.name = name;
-        this.bg = bg;
     }
 
     public ResourceLocation key(){
         return key;
     }
 
-    public BookNode entry(BookNode entry){
-        return nodes.get(entry.key());
-    }
-
-    public List<BookNode> entries(){
-        return new ArrayList<>(nodes.values());
-    }
 
     public Stream<BookNode> streamEntries(){
-        return nodes.values().stream();
+        return streamLayers()
+          .filter(layer -> layer instanceof NodeLayer)
+          .flatMap(nodelayer -> ((NodeLayer) nodelayer).streamNodes());
+    }
+    
+    public Stream<BookLayer> streamLayers(){
+        return layers.values().stream();
     }
 
     public BookMain book(){
@@ -60,12 +60,8 @@ public class BookTab implements Identifiable {
         return name;
     }
 
-    public ResourceLocation bg(){
-        return bg;
-    }
-
-    public List<TabLayer> getBgs(){
-        return layers;
+    public List<BookLayer> getLayers(){
+        return new ArrayList<>(layers.values());
     }
 
     int serializationIndex(){
@@ -76,11 +72,8 @@ public class BookTab implements Identifiable {
         return requirement;
     }
 
-    public BookNode getNode(ResourceLocation key){
-        return nodes.get(key);
+    public void render(PoseStack stack, BookMainScreen parent, float drawSize, float spd){
+        layers.values().forEach(layer -> layer.render(stack, parent, drawSize, spd));
     }
 
-    public Map<ResourceLocation, BookNode> getNodes() {
-        return nodes;
-    }
 }

@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 
-/** Wraps the Common {@link BookLoader} as an IdentifiableResourceReloadListener for Fabric */
+/** Wraps the Common {@link BookLoader} as an {@link IdentifiableResourceReloadListener} for Fabric */
 public class BookLoadListener extends BookLoader implements IdentifiableResourceReloadListener {
 
     @Override

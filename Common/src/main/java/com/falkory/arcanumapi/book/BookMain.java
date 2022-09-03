@@ -15,6 +15,7 @@ public class BookMain implements IDisableable, Identifiable {
 
     protected Map<ResourceLocation, BookTab> tabs;
     private ResourceLocation key;
+    public int tabIndex = 0;
 
     public BookMain(ResourceLocation key, Map<ResourceLocation, BookTab> tabs){
         this.tabs = tabs;

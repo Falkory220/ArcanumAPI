@@ -4,7 +4,6 @@ import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.bookdata.BookLoadListener;
 import com.falkory.arcanumapi.item.BookItems;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -12,10 +11,9 @@ import net.minecraft.server.packs.PackType;
 
 import java.util.function.BiConsumer;
 
-/** ArcanumAPI's main class for the fabric (and quilt!) mod loaders
- *  this mostly contains methods to safely delegate to {@link ArcanumCommon}
- * @see ArcanumCommon for the delegated tasks
- * @see ArcanumForge forge analogue of this class
+/** ArcanumAPI's main class for the fabric (and quilt!) mod loaders. <br>
+ *  This class mostly contains methods to safely delegate to {@link ArcanumCommon}
+ * @see ArcanumForge ArcanumForge (Forge analogue of this class)
  * */
 //"hey! did you just add this here to quick link between the three in dev" heck yeah I did
 public class ArcanumFabric implements ModInitializer {
@@ -33,10 +31,7 @@ public class ArcanumFabric implements ModInitializer {
         registryStuff();
         addReloadListener();
         
-        // Some code like events require special initialization from the
-        // loader specific code.
-        // note : this actually breaks on a dedicated server, move to a dedicated client method
-        // ItemTooltipCallback.EVENT.register(ArcanumCommon::onItemTooltip);
+        // Some code like events require special initialization from the loader specific code.
     }
 
     public static void addReloadListener(){
