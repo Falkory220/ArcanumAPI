@@ -1,0 +1,804 @@
+{
+  "entries": [
+    {
+      "key": "arcana:alchemy_root",
+      "name": "research.arcana.alchemy_root",
+      "icons": [
+        "arcana:crucible"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:alchemy"
+      ],
+      "meta": [
+        "spiky_base"
+      ],
+      "x": 0,
+      "y": 0,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.alchemy_root.text"
+        }
+      ]
+    },
+    {
+      "key": "arcana:arcanium",
+      "name": "research.arcana.arcanium",
+      "icons": [
+        "arcana:arcanium_ingot"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:alchemy_root"
+      ],
+      "x": 3,
+      "y": 0,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.arcanium.stage.1",
+          "requirements": [
+            "arcana::puzzle{arcana:arcanium_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/arcanium_ingot",
+          "requirements": [
+            "0*arcana:arcanium_ingot"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.arcanium.stage.2"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:silverwood_sticks"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:tools/arcanium/arcanium_pickaxe"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:armour/arcanium/arcanium_chestplate"
+        }
+      ]
+    },
+    {
+      "key": "arcana:magical_woods",
+      "name": "research.arcana.magical_woods",
+      "icons": [
+        "arcana:silverwood_log",
+        "arcana:hawthorn_log",
+        "arcana:greatwood_log",
+        "arcana:eucalyptus_log",
+        "arcana:silverwood_log",
+        "arcana:dair_log",
+        "arcana:greatwood_log",
+        "arcana:willow_log"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [ "arcana:arcanium" ],
+      "x": 4,
+      "y": -1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.magical_woods.stage.1",
+          "requirements": [
+            "arcana:silverwood_log", "arcana:greatwood_log", "minecraft:oak_log", "minecraft:spruce_log", "minecraft:birch_log", "minecraft:acacia_log"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.magical_woods.stage.2"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/wood/logs/dair_log"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/wood/leaves/dair_leaves"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/wood/logs/hawthorn_log"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/wood/leaves/hawthorn_leaves"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/wood/logs/willow_log"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/wood/leaves/willow_leaves"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/wood/logs/eucalyptus_log"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/wood/leaves/eucalyptus_leaves"
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.magical_woods.stage.3"
+        }
+      ]
+    },
+    {
+      "key": "arcana:transmutation",
+      "name": "research.arcana.transmutation",
+      "icons": [
+        "minecraft:iron_ingot",
+        "minecraft:gold_ingot",
+        "arcana:silver_ingot"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:alchemy_root"
+      ],
+      "x": -1,
+      "y": 2,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.transmutation.stage.1",
+          "requirements": [
+            "arcana::puzzle{arcana:silver_transmutation_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.transmutation.stage.2"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/silver_ingot_by_transmutation",
+          "requirements": [
+            "arcana::puzzle{arcana:gold_transmutation_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.transmutation.stage.3"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/gold_ingot_by_transmutation",
+          "requirements": [
+            "arcana::puzzle{arcana:iron_transmutation_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.transmutation.stage.4"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/iron_ingot_by_transmutation"
+        }
+      ]
+    },
+    {
+      "key": "arcana:purification",
+      "name": "research.arcana.purification",
+      "icons": [
+        "minecraft:iron_ore",
+        "minecraft:gold_ore",
+        "arcana:silver_ore"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:alchemy_root"
+      ],
+      "x": 1,
+      "y": 2,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.purification.stage.1",
+          "requirements": [
+            "2*minecraft:iron_ore",
+            "arcana:nitor",
+            "arcana::puzzle{arcana:iron_purification_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.purification.stage.2"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/purified_iron"
+        },
+        {
+          "type": "arcanumapi:smelting",
+          "content": "arcana:iron_ingot_from_purified_by_smelting",
+          "requirements": [
+            "2*minecraft:gold_ore",
+            "2*arcana:silver_ore",
+            "arcana::puzzle{arcana:further_purification_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.purification.stage.3"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/purified_silver"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/purified_gold"
+        }
+      ]
+    },
+    {
+      "key": "arcana:shortcut_transmutation",
+      "name": "research.arcana.shortcut_transmutation",
+      "icons": [
+        "arcana:purified_iron",
+        "arcana:purified_gold",
+        "arcana:purified_silver"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:transmutation",
+        "arcana:purification"
+      ],
+      "meta": [
+        "hexagon_base"
+      ],
+      "x": 0,
+      "y": 5,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.shortcut_transmutation.text"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/purified_silver_by_transmutation"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/purified_gold_by_transmutation"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/purified_iron_by_transmutation"
+        }
+      ]
+    },
+    {
+      "key": "arcana:shortcut_metallurgy",
+      "name": "research.arcana.shortcut_metallurgy",
+      "icons": [
+        "arcana:altered_iron"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "/arcana:arcanium",
+        "arcana:purification"
+      ],
+      "meta": [
+        "hexagon_base"
+      ],
+      "x": 3,
+      "y": 2,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.shortcut_metallurgy.text"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/altered_iron"
+        },
+        {
+          "type": "arcanumapi:smelting",
+          "content": "arcana:arcanium_ingot_from_altered_by_smelting"
+        }
+      ]
+    },
+    {
+      "key": "arcana:alchemical_glass",
+      "name": "research.arcana.alchemical_glass",
+      "desc": "research.arcana.alchemical_glass.desc",
+      "icons": [
+        "arcana:hardened_glass",
+        "arcana:smokey_glass",
+        "arcana:luminiferous_glass"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:alchemy_root"
+      ],
+      "x": -1,
+      "y": -2,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.alchemical_glass.stage.1",
+          "requirements": [
+            "arcana::puzzle{arcana:hardened_glass_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.alchemical_glass.stage.2"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hardened_glass",
+          "requirements": [
+            "arcana::puzzle{arcana:luminiferous_glass_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.alchemical_glass.stage.3"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/luminiferous_glass",
+          "requirements": [
+            "arcana::puzzle{arcana:smokey_glass_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.alchemical_glass.stage.4"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/smokey_glass"
+        }
+      ]
+    },
+    {
+      "key": "arcana:hedge_alchemy",
+      "name": "research.arcana.hedge_alchemy",
+      "icons": [
+        "minecraft:redstone",
+        "minecraft:glowstone_dust",
+        "minecraft:gunpowder",
+        "minecraft:blaze_powder",
+        "minecraft:leather",
+        "minecraft:diamond"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:alchemical_glass"
+      ],
+      "x": -1,
+      "y": -4,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.hedge_alchemy.stage.1",
+          "requirements": [
+            "5*minecraft:gunpowder",
+            "5*minecraft:blaze_powder",
+            "5*minecraft:redstone",
+            "5*minecraft:glowstone",
+            "2*minecraft:lapis_lazuli",
+            "2*minecraft:quartz",
+            "minecraft:diamond",
+            "3*minecraft:flint",
+            "6*minecraft:rotten_flesh",
+            "2*minecraft:leather",
+            "#minecraft:leaves",
+            "3*minecraft:string",
+            "3*minecraft:cobweb"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.hedge_alchemy.stage.2",
+          "requirements": [
+            "arcana::puzzle{arcana:hedge_alchemy_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.hedge_alchemy.stage.3"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hedge_alchemy/blaze_powder_by_alchemy"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hedge_alchemy/redstone_by_alchemy"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hedge_alchemy/glowstone_dust_by_alchemy"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hedge_alchemy/flint_by_alchemy"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hedge_alchemy/leather_by_alchemy"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hedge_alchemy/ice_by_alchemy"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hedge_alchemy/dead_bush_by_alchemy"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/hedge_alchemy/cobweb_by_alchemy"
+        }
+      ]
+    },
+    {
+      "key": "arcana:taint_in_a_bottle",
+      "name": "research.arcana.taint_in_a_bottle",
+      "desc": "research.arcana.taint_in_a_bottle.desc",
+      "icons": [
+        "arcana:taint_in_a_bottle"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:alchemy_root",
+        "arcana:flux"
+      ],
+      "x": -4,
+      "y": 0,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.taint_in_a_bottle.stage.1",
+          "requirements": [
+            "arcana::puzzle{arcana:bottled_taint_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.taint_in_a_bottle.stage.2"
+        },
+        {
+          "type": "arcanumapi:alchemy",
+          "content": "arcana:alchemy/taint_in_a_bottle"
+        }
+      ]
+    },
+    {
+      "key": "arcana:taint_scrubber",
+      "name": "research.arcana.taint_scrubber",
+      "desc": "research.arcana.taint_scrubber.desc",
+      "icons": [
+        "arcana:taint_scrubber_mk1"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:taint_in_a_bottle",
+        "~arcana:arcanium",
+        "arcana:variant_jars"
+      ],
+      "x": -6,
+      "y": -2,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.taint_scrubber.stage.1",
+          "requirements": [
+            "arcana:arcanium_ingot",
+            "arcana:silver_ingot",
+            "arcana:taint_in_a_bottle",
+            "3*arcana:taint_crystal",
+            "3*arcana:aura_crystal"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.taint_scrubber.stage.2",
+          "requirements": [
+            "arcana::puzzle{arcana:taint_scrubber_puzzle_1}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.taint_scrubber.stage.3"
+        },
+        {
+          "type": "arcanumapi:arcane_crafting",
+          "content": "arcana:arcane_crafting/taint_scrubber"
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.taint_scrubber.stage.4",
+          "requirements": [
+            "arcana::puzzle{arcana:taint_scrubber_puzzle_2}",
+            "0*arcana:taint_scrubber_mk1",
+            "arcana::research_completed{arcana:alchemical_glass@3}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.taint_scrubber.stage.5"
+        },
+        {
+          "type": "arcanumapi:arcane_crafting",
+          "content": "arcana:arcane_crafting/taint_scrubber_base"
+        }
+      ]
+    },
+    {
+      "key": "arcana:better_taint_scrubbing",
+      "name": "research.arcana.better_taint_scrubbing",
+      "icons": [
+        "arcana:taint_booster"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:taint_scrubber"
+      ],
+      "x": -7,
+      "y": -3,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.better_taint_scrubbing.stage.1",
+          "requirements": [
+            "arcana::puzzle{arcana:better_taint_scrubbing_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.better_taint_scrubbing.stage.2"
+        },
+        {
+          "type": "arcanumapi:arcane_crafting",
+          "content": "arcana:arcane_crafting/taint_scrubber_booster"
+        }
+      ]
+    },
+    {
+      "key": "arcana:further_flux_cleanup",
+      "name": "research.arcana.further_flux_cleanup",
+      "desc": "research.arcana.further_flux_cleanup.desc",
+      "icons": [
+        "arcana:taint_bore",
+        "arcana:taint_sucker"
+      ],
+      "category": "arcana:alchemy",
+      "parents": [
+        "arcana:taint_scrubber"
+      ],
+      "x": -5,
+      "y": -3,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.further_flux_cleanup.stage.1",
+          "requirements": [
+            "arcana::puzzle{arcana:taint_sucker_puzzle}",
+            "arcana::puzzle{arcana:taint_bore_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.further_flux_cleanup.stage.2"
+        },
+        {
+          "type": "arcanumapi:arcane_crafting",
+          "content": "arcana:arcane_crafting/taint_sucker"
+        },
+        {
+          "type": "arcanumapi:arcane_crafting",
+          "content": "arcana:arcane_crafting/taint_bore"
+        }
+      ]
+    }
+  ],
+  "puzzles": [
+    {
+      "key": "arcana:iron_transmutation_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.iron_transmutation",
+      "nodes": [
+        "arcana:metal",
+        "arcana:exchange",
+        "arcana:tool"
+      ]
+    },
+    {
+      "key": "arcana:silver_transmutation_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.silver_transmutation",
+      "nodes": [
+        "arcana:metal",
+        "arcana:exchange",
+        "arcana:ice",
+        "arcana:imprison"
+      ]
+    },
+    {
+      "key": "arcana:gold_transmutation_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.gold_transmutation",
+      "nodes": [
+        "arcana:metal",
+        "arcana:exchange",
+        "arcana:greed",
+        "arcana:envy",
+        "arcana:senses"
+      ]
+    },
+    {
+      "key": "arcana:bottled_taint_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.bottled_taint",
+      "nodes": [
+        "arcana:taint",
+        "arcana:imprison",
+        "arcana:seeds",
+        "arcana:taint",
+        "arcana:harvest",
+        "arcana:aura"
+      ]
+    },
+    {
+      "key": "arcana:taint_scrubber_puzzle_1",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.taint_scrubber",
+      "nodes": [
+        "arcana:mana",
+        "arcana:taint",
+        "arcana:imprison",
+        "arcana:aura",
+        "arcana:armour",
+        "arcana:machine"
+      ]
+    },
+    {
+      "key": "arcana:taint_scrubber_puzzle_2",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.taint_scrubber_focus",
+      "nodes": [
+        "arcana:mana",
+        "arcana:aura",
+        "arcana:mana",
+        "arcana:aura",
+        "arcana:mana",
+        "arcana:aura",
+        "arcana:mana",
+        "arcana:aura"
+      ]
+    },
+    {
+      "key": "arcana:better_taint_scrubbing_puzzle",
+      "type": "arcanumapi:chemistry",
+      "nodes": [
+        "arcana:exchange",
+        "arcana:energy",
+        "arcana:strength",
+        "arcana:machine"
+      ]
+    },
+    {
+      "key": "arcana:taint_sucker_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.taint_sucker",
+      "nodes": [
+        "arcana:air",
+        "arcana:order",
+        "arcana:aura",
+        "arcana:energy",
+        "arcana:machine",
+        "arcana:aura"
+      ]
+    },
+    {
+      "key": "arcana:taint_bore_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.taint_bore",
+      "nodes": [
+        "arcana:earth",
+        "arcana:chaos",
+        "arcana:aura",
+        "arcana:energy",
+        "arcana:machine",
+        "arcana:aura"
+      ]
+    },
+    {
+      "key": "arcana:hardened_glass_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.hardened_glass",
+      "nodes": [
+        "arcana:crystal",
+        "arcana:earth",
+        "arcana:armour",
+        "arcana:earth"
+      ]
+    },
+    {
+      "key": "arcana:luminiferous_glass_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.luminiferous_glass",
+      "nodes": [
+        "arcana:crystal",
+        "arcana:air",
+        "arcana:light",
+        "arcana:air"
+      ]
+    },
+    {
+      "key": "arcana:smokey_glass_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.smokey_glass",
+      "nodes": [
+        "arcana:crystal",
+        "arcana:chaos",
+        "arcana:vacuum",
+        "arcana:chaos"
+      ]
+    },
+    {
+      "key": "arcana:hedge_alchemy_puzzle",
+      "type": "arcanumapi:chemistry",
+      "desc": "puzzle.arcana.hedge_alchemy",
+      "nodes": [
+        "arcana:exchange",
+        "arcana:creation",
+        "arcana:ice",
+        "arcana:plant",
+        "arcana:exchange",
+        "arcana:sloth",
+        "arcana:slime",
+        "arcana:crystal"
+      ]
+    },
+    {
+      "key": "arcana:arcanium_puzzle",
+      "type": "arcanumapi:chemistry",
+      "nodes": [
+        "arcana:mana",
+        "arcana:metal",
+        "arcana:energy",
+        "arcana:tool"
+      ]
+    },
+    {
+      "key": "arcana:iron_purification_puzzle",
+      "type": "arcanumapi:chemistry",
+      "nodes": [
+        "arcana:metal",
+        "arcana:order",
+        "arcana:crystal",
+        "arcana:order",
+        "arcana:fire"
+      ]
+    },
+    {
+      "key": "arcana:further_purification_puzzle",
+      "type": "arcanumapi:chemistry",
+      "nodes": [
+        "arcana:metal",
+        "arcana:order",
+        "arcana:greed",
+        "arcana:order",
+        "arcana:imprison"
+      ]
+    }
+  ]
+}

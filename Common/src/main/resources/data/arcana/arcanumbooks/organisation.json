@@ -1,0 +1,119 @@
+{
+  "books": [
+    {
+      "key": "arcana:arcanum",
+      "prefix": "arcanum"
+    },
+    {
+      "key": "arcana:tainted_codex",
+      "prefix": "book_of_taint"
+    },
+    {
+      "key": "arcana:crimson_rites",
+      "prefix": "crimson_rites"
+    },
+    {
+      "key": "arcana:illustrious_grimoire",
+      "prefix": "arcanum"
+    }
+  ],
+  "categories": [
+    {
+      "key": "arcana:fundamentals",
+      "in": "arcana:arcanum",
+      "icon": "arcana:research/haha_funny_debug_texture_go_missing_image.png",
+      "name": "research.arcana.category.fundamentals",
+      "bg": "arcana:research/research_bg1_b.png"
+    },
+    {
+      "key": "arcana:alchemy",
+      "in": "arcana:arcanum",
+      "icon": "arcana:item/crucible_item.png",
+      "name": "research.arcana.category.alchemy",
+      "bg": "arcana:research/basics_bg.png",
+      "requires": "arcana:alchemy"
+    },
+    {
+      "key": "arcana:auromancy",
+      "in": "arcana:arcanum",
+      "icon": "arcana:item/focus_parts.png",
+      "name": "research.arcana.category.auromancy",
+      "bg": "arcana:research/basics_bg.png",
+      "requires": "arcana:wandcraft"
+    },
+    {
+      "key": "arcana:wandcraft",
+      "in": "arcana:arcanum",
+      "icon": "arcana:item/basicwand.png",
+      "name": "research.arcana.category.wandcraft",
+      "bg": "arcana:research/basics_bg.png",
+      "requires": "arcana:wandcraft",
+      "bgs": [
+        {
+          "type": "arcanumapi:image",
+          "image": "arcana:research/flow/base",
+          "speed": 0.7
+        },
+        {
+          "type": "arcanumapi:image",
+          "image": "arcana:research/flow/1",
+          "speed": 1.0
+        },
+        {
+          "type": "arcanumapi:image",
+          "image": "arcana:research/flow/2",
+          "speed": 1.4
+        }
+      ]
+    },
+    {
+      "key": "arcana:tainted_basics",
+      "in": "arcana:tainted_codex",
+      "icon": "arcana:research/tainted_basics.png",
+      "name": "research.arcana.category.taint",
+      "bg": "arcana:research/tainted_bg.png"
+    },
+    {
+      "key": "arcana:crimson_basics",
+      "in": "arcana:crimson_rites",
+      "icon": "arcana:research/crimson_basics.png",
+      "name": "research.arcana.category.crimson",
+      "bg": "arcana:research/eldritch_bg.png"
+    },
+    {
+      "key": "arcana:illustrious_basics",
+      "in": "arcana:illustrious_grimoire",
+      "icon": "arcana:research/illustrious_basics.png",
+      "name": "research.arcana.category.illustrious",
+      "bg": "arcana:research/nightsky/nightsky_1.png",
+      "bgs": [
+        {
+          "type": "arcanumapi:image",
+          "image": "arcana:research/nightsky/nightsky_0",
+          "speed": 0.65
+        },
+        {
+          "type": "arcanumapi:image",
+          "image": "arcana:research/nightsky/nightsky_1",
+          "speed": 0.65
+        },
+        {
+          "type": "arcanumapi:image",
+          "image": "arcana:research/nightsky/nightsky_4",
+          "speed": 0.8
+        },
+        {
+          "type": "arcanumapi:image",
+          "image": "arcana:research/nightsky/nightsky_3",
+          "speed": 0.9
+        },
+        {
+          "type": "arcanumapi:image",
+          "image": "arcana:research/nightsky/nightsky_2",
+          "speed": 1.0,
+          "vanishZoom": 0.9
+        }
+      ]
+    }
+  ]
+}

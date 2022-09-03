@@ -1,0 +1,536 @@
+{
+  "entries": [
+    {
+      "key": "arcana:willow_tree",
+      "name": "research.arcana.willow_tree",
+      "icons": [
+        "arcana:willow_sapling"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base"
+      ],
+      "x": -4,
+      "y": -1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.willow_tree.stage.1",
+          "requirements": [
+            "3*arcana:willow_log"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.willow_tree.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:dair_tree",
+      "name": "research.arcana.dair_tree",
+      "desc": "research.arcana.dair_tree.desc",
+      "icons": [
+        "arcana:dair_sapling"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base"
+      ],
+      "x": -5,
+      "y": -1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.dair_tree.stage.1",
+          "requirements": [
+            "2*arcana:dair_log"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.dair_tree.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:hawthorn_tree",
+      "name": "research.arcana.hawthorn_tree",
+      "icons": [
+        "arcana:hawthorn_sapling"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base"
+      ],
+      "x": -6,
+      "y": -1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.hawthorn_tree.stage.1",
+          "requirements": [
+            "3*arcana:hawthorn_log"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.hawthorn_tree.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:greatwood_tree",
+      "name": "research.arcana.greatwood_tree",
+      "desc": "research.arcana.greatwood_tree.desc",
+      "icons": [
+        "arcana:greatwood_sapling"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base"
+      ],
+      "x": -7,
+      "y": -1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.greatwood_tree.stage.1",
+          "requirements": [
+            "4*arcana:greatwood_log"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.greatwood_tree.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:silverwood_tree",
+      "name": "research.arcana.silverwood_tree",
+      "icons": [
+        "arcana:silverwood_sapling"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base"
+      ],
+      "x": -5,
+      "y": 0,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.silverwood_tree.stage.1",
+          "requirements": [
+            "2*arcana:silverwood_log"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.silverwood_tree.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:eucalyptus_tree",
+      "name": "research.arcana.eucalyptus_tree",
+      "desc": "research.arcana.eucalyptus_tree.desc",
+      "icons": [
+        "arcana:eucalyptus_sapling"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base"
+      ],
+      "x": -4,
+      "y": 0,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.eucalyptus_tree.stage.1",
+          "requirements": [
+            "arcana:eucalyptus_log"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.eucalyptus_tree.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:silver",
+      "name": "research.arcana.silver",
+      "desc": "research.arcana.silver.desc",
+      "icons": [
+        "arcana:silver_ingot",
+        "arcana:silver_pickaxe",
+        "arcana:silver_axe",
+        "arcana:silver_shovel",
+        "arcana:silver_hoe",
+        "arcana:silver_sword"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base"
+      ],
+      "x": -6,
+      "y": 0,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.silver.stage.1",
+          "requirements": [
+            "3*arcana:silver_ore"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.silver.stage.2"
+        },
+        {
+          "type": "arcanumapi:smelting",
+          "content": "arcana:silver_ingot_from_smelting"
+        },
+        {
+          "type": "arcanumapi:crafting",
+        "content": "arcana:silver_pickaxe"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:silver_axe"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:silver_hoe"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:silver_shovel"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:silver_sword"
+        }
+      ]
+    },
+    {
+      "key": "arcana:amber",
+      "name": "research.arcana.amber",
+      "icons": [
+        "arcana:amber"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base"
+      ],
+      "x": -7,
+      "y": 0,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.amber.stage.1",
+          "requirements": [
+            "3*arcana:amber"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.amber.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:root",
+      "name": "research.arcana.root",
+      "desc": "research.arcana.root.desc",
+      "icons": [
+        "arcana:arcanum"
+      ],
+      "category": "arcana:basics",
+      "parents": [],
+      "meta": [
+        "root",
+        "yellow_base",
+        "round_base"
+      ],
+      "x": -2,
+      "y": -1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.root.text"
+        }
+      ]
+    },
+    {
+      "key": "arcana:aspects",
+      "name": "research.arcana.aspects",
+      "desc": "research.arcana.aspects.desc",
+      "icons": [
+        "arcana:aspect_earth",
+        "arcana:aspect_air",
+        "arcana:aspect_water",
+        "arcana:aspect_fire",
+        "arcana:aspect_order",
+        "arcana:aspect_chaos"
+      ],
+      "category": "arcana:basics",
+      "parents": [
+        "arcana:root"
+      ],
+      "meta": [
+        "round_base",
+        "reverse"
+      ],
+      "x": -1,
+      "y": 0,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.aspects.text"
+        }
+      ]
+    },
+    {
+      "key": "arcana:collecting_aspects",
+      "name": "research.arcana.collecting_aspects",
+      "icons": [
+        "arcana:jar"
+      ],
+      "category": "arcana:basics",
+      "parents": [
+        "arcana:aspects"
+      ],
+      "meta": [
+        "round_base"
+      ],
+      "x": 0,
+      "y": 1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.collecting_aspects.stage.1"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:jar"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:alembic"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:essentia_tube"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:iron_cap",
+          "requirements": [
+            "0*arcana:jar",
+            "0*arcana:crucible",
+            "0*arcana:alembic",
+            "0*arcana:essentia_tube"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.collecting_aspects.stage.2"
+        },
+        {
+          "type": "arcanumapi:arcane_crafting",
+          "content": "arcana:arcane_crafting/secure_jar"
+        }
+      ]
+    },
+    {
+      "key": "arcana:aspect_tubes",
+      "name": "research.arcana.aspect_tubes",
+      "desc": "research.arcana.aspect_tubes.desc",
+      "icons": [
+        "arcana:essentia_tube",
+        "arcana:essentia_window",
+        "arcana:essentia_valve"
+      ],
+      "category": "arcana:basics",
+      "parents": [
+        "arcana:collecting_aspects"
+      ],
+      "meta": [
+        "round_base"
+      ],
+      "x": -1,
+      "y": 2,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.aspect_tubes.text"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:essentia_tube"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:essentia_valve"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:essentia_window"
+        }
+      ]
+    },
+    {
+      "key": "arcana:research_intro",
+      "name": "research.arcana.research_intro",
+      "desc": "research.arcana.research_intro.desc",
+      "icons": [
+        "arcana:research_table_placer"
+      ],
+      "category": "arcana:basics",
+      "parents": [
+        "arcana:collecting_aspects"
+      ],
+      "meta": [
+        "spiky_base",
+        "reverse"
+      ],
+      "x": 1,
+      "y": 2,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.research_intro.stage.1"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:ink"
+        },
+        {
+          "type": "arcanumapi:crafting",
+          "content": "arcana:gold_cap",
+          "requirements": [
+            "0*arcana:research_table_placer",
+            "0*arcana:phial",
+            "0*arcana:aspect_bookshelf"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.research_intro.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:chemistry_info",
+      "name": "research.arcana.chemistry_info",
+      "desc": "research.arcana.chemistry_info.desc",
+      "icons": [
+        "minecraft:glass_bottle"
+      ],
+      "category": "arcana:basics",
+      "parents": [
+        "arcana:research_intro"
+      ],
+      "meta": [
+        "round_base",
+        "yellow_base"
+      ],
+      "x": 2,
+      "y": 1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.chemistry_info.stage.1",
+          "requirements": [
+            "arcana::puzzle{arcana:chemistry_intro_puzzle}"
+          ]
+        },
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.chemistry_info.stage.2"
+        }
+      ]
+    },
+    {
+      "key": "arcana:guesswork_info",
+      "name": "research.arcana.guesswork_info",
+      "desc": "research.arcana.guesswork_info.desc",
+      "icons": [
+        "minecraft:crafting_table"
+      ],
+      "category": "arcana:basics",
+      "parents": [
+        "arcana:research_intro"
+      ],
+      "meta": [
+        "round_base",
+        "yellow_base"
+      ],
+      "x": 3,
+      "y": 1,
+      "sections": [
+        {
+          "type": "arcanumapi:string",
+          "content": "research.arcana.guesswork_info.stage.1",
+          "requirements": [
+            "arcana::puzzle{arcana:gw_enchanting_table}"
+          ]
+        }
+      ]
+    }
+  ],
+  "puzzles": [
+    {
+      "key": "arcana:gw_enchanting_table",
+      "type": "arcanumapi:guesswork",
+      "recipe": "minecraft:enchanting_table",
+      "hints": [
+        "minecraft:book=requirement.guesswork.ench.hint.book",
+        "minecraft:diamond=requirement.guesswork.ench.hint.diamond",
+        "minecraft:obsidian=requirement.guesswork.ench.hint.obsidian"
+      ]
+    },
+    {
+      "key": "arcana:fw_place_research_table",
+      "type": "arcanumapi:fieldwork",
+      "desc": "requirement.fieldwork.place_table"
+    },
+    {
+      "key": "arcana:chemistry_expertise",
+      "type": "arcanumapi:chemistry",
+      "nodes": [
+        "slime",
+        "order",
+        "chaos",
+        "tree"
+      ]
+    },
+    {
+      "key": "arcana:chemistry_intro_puzzle",
+      "type": "arcanumapi:chemistry",
+      "nodes": [
+        "chaos",
+        "order"
+      ]
+    }
+  ]
+}
