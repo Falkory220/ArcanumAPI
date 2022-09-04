@@ -45,20 +45,25 @@ public class BookMainScreen extends AbstractBookScreen{
     }
 
     @Override public void render(PoseStack stack, int $$1, int $$2, float tickDelta) {
-        float diff = targetZoom - zoom;
-        if (abs(diff) < 0.1f) {zoom = targetZoom;} else {
-            zoom += Math.min(tickDelta * (2 / 3f), 1) * diff;
-        }
+
         //this used to be in the arcana config, copied default settings todo make user config option
         int frameWidth = width - 60;
         int frameHeight = height - 20;
         int frameSize = Math.max(frameWidth, frameHeight);
 
+        float diff = targetZoom - zoom;
+        if (abs(diff) < 0.05f) {targetZoom = zoom;} else {
+            float smoothDelta = Math.min(tickDelta * (1 / 3f), 1) * diff;
+            float scalar = smoothDelta*(1/zoom)/zoom; // todo so close to focused zoom I can taste it
+            xPan -= xPan*scalar;
+            yPan -= yPan*scalar;
+            zoom += smoothDelta;
+        }
         int zoomDrawSize = (int)(frameSize*zoom);
 
 
         // draw stuff
-        // 224x196 viewing area
+        // todo frame width config
         int scale = (int)this.minecraft.getWindow().getGuiScale();
         minBookX = (width - frameWidth + 32) / 2;
         minBookY = (height - frameHeight + 34) / 2;
@@ -105,6 +110,7 @@ public class BookMainScreen extends AbstractBookScreen{
 
     @Override public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY){
         if(inWindow(mouseX, mouseY)) {
+            if(Float.isNaN(xPan + yPan)){xPan=0;yPan=0;}
             xPan -= (deltaX * ZOOM_MULTIPLIER) / (zoom * maxPanX);
             yPan -= (deltaY * ZOOM_MULTIPLIER) / (zoom * maxPanY);
             xPan = clamp(xPan, -1f, 1f);
