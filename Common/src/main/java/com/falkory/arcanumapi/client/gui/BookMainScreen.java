@@ -53,11 +53,13 @@ public class BookMainScreen extends AbstractBookScreen{
 
         float diff = targetZoom - zoom;
         if (abs(diff) < 0.05f) {targetZoom = zoom;} else {
+            float zoomP = (zoom-1)/3;
             float smoothDelta = Math.min(tickDelta * (1 / 3f), 1) * diff;
             float scalar = smoothDelta*(1/zoom)/zoom; // todo so close to focused zoom I can taste it
             xPan -= xPan*scalar;
             yPan -= yPan*scalar;
             zoom += smoothDelta;
+            System.out.println("Scalar: "+scalar+" Zoom: "+zoom);
         }
         int zoomDrawSize = (int)(frameSize*zoom);
 
