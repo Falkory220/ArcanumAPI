@@ -1,6 +1,7 @@
 package com.falkory.arcanumapi.book.layers;
 
 import com.falkory.arcanumapi.client.gui.BookMainScreen;
+import com.falkory.arcanumapi.util.Identifiable;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.nbt.CompoundTag;
@@ -11,7 +12,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public abstract class BookLayer {
+public abstract class BookLayer implements Identifiable {
     // this whole thing is one biiig snip (thank you Luna)
 
     ////////// static stuff
@@ -19,16 +20,17 @@ public abstract class BookLayer {
     private static Map<ResourceLocation, Supplier<BookLayer>> factories = new LinkedHashMap<>();
     private static Map<ResourceLocation, Function<CompoundTag, BookLayer>> deserializers = new LinkedHashMap<>();
 
-    public static BookLayer makeLayer(ResourceLocation type, JsonObject content, ResourceLocation file, float speed, float vanishZoom){
-        if(getBlank(type) != null){
-            BookLayer layer = getBlank(type).get();
-            layer.setSpeed(speed);
-            layer.setVanishZoom(vanishZoom);
-            layer.load(content, file);
-            return layer;
-        }else{ 
-            return null;
-        }
+    public static BookLayer makeLayer(ResourceLocation key, ResourceLocation type, float priority, JsonObject content, ResourceLocation file, float speed, float vanishZoom){
+        if(getFactory(type) == null) return null;
+
+        BookLayer layer = getFactory(type).get();
+        layer.key = key;
+        layer.setSpeed(speed);
+        layer.setVanishZoom(vanishZoom);
+        layer.setPriority(priority);
+
+        layer.load(content, file);
+        return layer;
     }
 
     public static BookLayer deserialize(CompoundTag passData){
@@ -36,15 +38,16 @@ public abstract class BookLayer {
         CompoundTag data = passData.getCompound("data");
         float speed = passData.getFloat("speed");
         float vanishZoom = passData.getFloat("vanishZoom");
+        float priority = passData.getFloat("priority");
         if(deserializers.get(type) != null){
             BookLayer layer = deserializers.get(type).apply(data);
-            layer.setSpeed(speed).setVanishZoom(vanishZoom);
+            layer.setSpeed(speed).setVanishZoom(vanishZoom).setPriority(priority);
             return layer;
         }
         return null;
     }
 
-    public static Supplier<BookLayer> getBlank(ResourceLocation type){
+    public static Supplier<BookLayer> getFactory(ResourceLocation type){
         return factories.get(type);
     }
 
@@ -56,7 +59,10 @@ public abstract class BookLayer {
     ///////// instance stuff
 
 
-    protected float speed = 0.5f, vanishZoom = -1;
+    protected float speed = 1f;
+    protected float vanishZoom = -1;
+    protected float priority;
+    protected ResourceLocation key;
 
     public float speed(){
         return speed;
@@ -76,6 +82,11 @@ public abstract class BookLayer {
         return this;
     }
 
+    protected BookLayer setPriority(float priority){
+        this.priority = priority;
+        return this;
+    }
+
     public CompoundTag getPassData(){
         CompoundTag nbt = new CompoundTag();
         nbt.putString("type", type().toString());
@@ -84,6 +95,8 @@ public abstract class BookLayer {
         nbt.putFloat("vanishZoom", vanishZoom());
         return nbt;
     }
+
+    public ResourceLocation key(){return key;}
 
     public abstract ResourceLocation type();
 
@@ -94,6 +107,7 @@ public abstract class BookLayer {
      * @param data The json object passed by the main {@link BookLayer} deserializer
      * */
     public abstract void load(JsonObject data, ResourceLocation file);
+
     /** Called by the book screen. All draws will be in a GL scissor,
      * so no worries about drawing over the frame.
      * @param frameMax Maximum width/height of the scissors.

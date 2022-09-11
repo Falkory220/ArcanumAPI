@@ -2,18 +2,11 @@ package com.falkory.arcanumapi.client.gui;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookMain;
-import com.falkory.arcanumapi.book.BookTab;
-import com.falkory.arcanumapi.book.layers.BookLayer;
-import com.falkory.arcanumapi.book.layers.ImageLayer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 import static net.minecraft.util.Mth.abs;
 import static net.minecraft.util.Mth.clamp;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
@@ -53,13 +46,11 @@ public class BookMainScreen extends AbstractBookScreen{
 
         float diff = targetZoom - zoom;
         if (abs(diff) < 0.05f) {targetZoom = zoom;} else {
-            float zoomP = (zoom-1)/3;
-            float smoothDelta = Math.min(tickDelta * (1 / 3f), 1) * diff;
+            float smoothDelta = Math.min(tickDelta * (2 / 3f), 1) * diff;
             float scalar = smoothDelta*(1/zoom)/zoom; // todo so close to focused zoom I can taste it
             xPan -= xPan*scalar;
             yPan -= yPan*scalar;
             zoom += smoothDelta;
-            System.out.println("Scalar: "+scalar+" Zoom: "+zoom);
         }
         int zoomDrawSize = (int)(frameSize*zoom);
 
@@ -78,25 +69,7 @@ public class BookMainScreen extends AbstractBookScreen{
         maxPanX = (zoomDrawSize- bookWidth)/2f;
         maxPanY = (zoomDrawSize- bookHeight)/2f;
 
-        //renderResearchBackground(stack);
-        //renderEntries(stack, partialTicks);
-        //render(stack, partialTicks, minBookX, minBookY, bookWidth, bookHeight, zoom)
-        getBook().getTabs().get(getBook().tabIndex);
-
-        BookLayer mainbg = new ImageLayer("arcana:textures/research/eldritch_bg.png");
-        BookLayer glassoverlay = new ImageLayer("minecraft:textures/block/glass.png", 1.1f);
-
-        Map<Number, BookLayer> testLayers = new HashMap<>();
-        testLayers.put(1, glassoverlay);
-        testLayers.put(0, mainbg);
-
-
-
-        BookTab testTab = new BookTab(testLayers, AmId("test_tab"), AmId("textures/items/arcanum.png"), null, "Test Tab", this.getBook() );
-        testTab.render(stack, this, frameSize, tickDelta);
-
-        //mainbg.render(stack, this, frameSize, tickDelta);
-        //glassoverlay.render(stack, this, frameSize, tickDelta);
+        getBook().getCurrentTab().render(stack, this, frameSize, tickDelta);
 
         // scissors off
         GL11.glDisable(GL_SCISSOR_TEST);
@@ -129,6 +102,8 @@ public class BookMainScreen extends AbstractBookScreen{
             if ((scroll < 0 && targetZoom > 1) || (scroll > 0 && targetZoom < 4))
                 targetZoom *= scroll > 0 ? amount : 1 / amount;
             targetZoom = clamp(targetZoom, 1f, 4f);
+        } else {
+            getBook().incrementTab((int) scroll);
         }
         return super.mouseScrolled(mouseX, mouseY, scroll);
     }

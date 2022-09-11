@@ -43,14 +43,15 @@ public class ImageLayer extends BookLayer {
 
     public void load(JsonObject data, ResourceLocation file){
         JsonPrimitive imagePrim = data.getAsJsonPrimitive("image");
-        if(imagePrim != null)
-            if(imagePrim.isString()){
-                ResourceLocation base = new ResourceLocation(imagePrim.getAsString());
-                image = new ResourceLocation(base.getNamespace(), "textures/" + base.getPath() + ".png");
-            }else
-                LOGGER.error("Field \"image\" for an image background layer was not a string, in " + file + "!");
-        else
+        if(imagePrim == null){
             LOGGER.error("Field \"image\" for an image background layer was not defined, in " + file + "!");
+            return;}
+        if(!imagePrim.isString()){
+            LOGGER.error("Field \"image\" for an image background layer was not a string, in " + file + "!");
+            return;}
+
+        ResourceLocation base = new ResourceLocation(imagePrim.getAsString());
+        image = new ResourceLocation(base.getNamespace(), "textures/" + base.getPath() + ".png");
     }
 
     @Override public void render(PoseStack stack, BookMainScreen parent, float drawSize, float tickDelta){

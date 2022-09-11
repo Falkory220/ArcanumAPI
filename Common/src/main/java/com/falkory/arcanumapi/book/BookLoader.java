@@ -28,8 +28,10 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
 
     private static Map<ResourceLocation, JsonArray> bookQueue = new LinkedHashMap<>();
     private static Map<ResourceLocation, JsonArray> tabQueue = new LinkedHashMap<>();
+    private static Map<ResourceLocation, JsonArray> layerQueue = new LinkedHashMap<>();
     private static Map<ResourceLocation, JsonArray> nodeQueue = new LinkedHashMap<>();
 
+    //TODO custom namespacing method for un-namespaced resource locations in read locations, to reduce clutter in the case of hand-writing
 
     public BookLoader() {super(GSON, "arcanumbooks"); LOG.info("Made a new BookLoader!");}
 
@@ -40,10 +42,11 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
                 LOG.error("Non-object found in books array in " + rl + "!");
             else{
                 JsonObject book = bookElement.getAsJsonObject();
+
                 // expecting key
                 ResourceLocation key = new ResourceLocation(book.get("key").getAsString());
                 BookMain bookObject = new BookMain(key, new LinkedHashMap<>());
-                Books.BOOKS.putIfAbsent(key, bookObject);
+                Books.BOOKS.put(key, bookObject);
                 LOG.info("Loaded book " + key);
             }
         }
@@ -55,66 +58,97 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
                 LOG.error("Non-object found in categories array in " + rl + "!");
             else{
                 JsonObject tab = categoryElement.getAsJsonObject();
-                // expecting key, in, icon, bg, optionally bgs
+
+                // expecting key, in, icon
                 ResourceLocation key = new ResourceLocation(tab.get("key").getAsString());
-                ResourceLocation bg = new ResourceLocation(tab.get("bg").getAsString());
-                bg = new ResourceLocation(bg.getNamespace(), "textures/" + bg.getPath());
                 ResourceLocation icon = new ResourceLocation(tab.get("icon").getAsString());
                 icon = new ResourceLocation(icon.getNamespace(), "textures/" + icon.getPath());
                 String name = tab.get("name").getAsString();
                 ResourceLocation requirement = tab.has("requires") ? new ResourceLocation(tab.get("requires").getAsString()) : null;
                 BookMain in = Books.BOOKS.get(new ResourceLocation(tab.get("in").getAsString()));
-                BookTab tabObject = new BookTab(new LinkedHashMap<>(), key, icon, requirement, name, in);
-                if(tab.has("bgs")){
-                    JsonArray layers = tab.getAsJsonArray("bgs");
+                BookTab tabObject = new BookTab(key, new LinkedHashMap<>(), icon, requirement, name, in);
+
+                //TODO make adding layers to existing tabs ,, a thing?
+                if(tab.has("layers")){
+                    JsonArray layers = tab.getAsJsonArray("layers");
                     for(JsonElement layerElem : layers){
-                        JsonObject layerObj = layerElem.getAsJsonObject();
-                        BookLayer layer = BookLayer.makeLayer(
-                          new ResourceLocation(layerObj.getAsJsonPrimitive("type").getAsString()),
-                          layerObj,
-                          rl,
-                          layerObj.getAsJsonPrimitive("speed").getAsFloat(),
-                          layerObj.has("vanishZoom") ? layerObj.getAsJsonPrimitive("vanishZoom").getAsFloat() : -1);
-                        if(layer != null)
-                            tabObject.getLayers().add(layer);
+                        ResourceLocation loc = new ResourceLocation(layerElem.getAsString());
+                        tabObject.layers.put(loc, null);
                     }
                 }
-                in.tabs.putIfAbsent(key, tabObject);
+                in.tabs.put(key, tabObject);
             }
         }
     }
 
+    private static void applyLayersArray(ResourceLocation rl, JsonArray layers){
+        for(JsonElement layerElement : layers){
+            if(!layerElement.isJsonObject()){
+                LOG.error("Non-object found in layers array in " + rl + "!");
+                continue;
+            }
+
+            // expecting key, in, priority, and type. optionals are speed and vanishZoom
+
+            JsonObject layerObj = layerElement.getAsJsonObject();
+            ResourceLocation type = new ResourceLocation(layerObj.getAsJsonPrimitive("type").getAsString());
+            BookLayer layer = BookLayer.makeLayer(
+              new ResourceLocation(layerObj.getAsJsonPrimitive("key").getAsString()),
+              type,
+              layerObj.getAsJsonPrimitive("priority").getAsFloat(),
+              layerObj,
+              rl,
+              layerObj.has("speed") ? layerObj.getAsJsonPrimitive("speed").getAsFloat() : 1f,
+              layerObj.has("vanishZoom") ? layerObj.getAsJsonPrimitive("vanishZoom").getAsFloat() : -1);
+
+            if(layer==null){
+                if(BookLayer.getFactory(type) == null){
+                    LOG.error("Invalid Layer type \"" + type + "\" referenced in " + rl + "!");}
+                else{
+                    LOG.error("Invalid Layer content for type \"" + type + "\" used in file " + rl + "!");}
+                continue;
+            }
+            LinkedList<ResourceLocation> in = new LinkedList<ResourceLocation>();
+            layerObj.getAsJsonArray("in").forEach( i -> in.add(new ResourceLocation(i.getAsString())));
+
+            Books.streamTabs()
+              .filter(tab -> in.contains(tab.key()))
+              .forEach(tab -> tab.layers.put(layer.key(), layer));
+        }
+    }
+
+
     //TODO: call for NodeLayers instead of all tabs.
     private static void applyNodesArray(ResourceLocation rl, JsonArray nodes){
-        for(JsonElement entryElement : nodes){
-            if(!entryElement.isJsonObject())
+        for(JsonElement nodeElement : nodes){
+            if(!nodeElement.isJsonObject()){
                 LOG.error("Non-object found in entries array in " + rl + "!");
-            else{
-                JsonObject entry = entryElement.getAsJsonObject();
+                continue;}
 
-                // expecting key, name, desc, icons, category, x, y, sections
-                ResourceLocation key = new ResourceLocation(entry.get("key").getAsString());
-                String name = entry.get("name").getAsString();
-                String desc = entry.has("desc") ? entry.get("desc").getAsString() : "";
-                List<Icon> icons = idsToIcons(entry.getAsJsonArray("icons"), rl);
-                BookTab category = Books.getTab(new ResourceLocation(entry.get("category").getAsString()));
-                int x = entry.get("x").getAsInt();
-                int y = entry.get("y").getAsInt();
-                List<BookPage> pages = jsonToPages(entry.getAsJsonArray("sections"), rl);
+            JsonObject node = nodeElement.getAsJsonObject();
 
-                // optionally parents, meta
-                List<NodeParent> parents = new ArrayList<>();
-                if(entry.has("parents"))
-                    parents = StreamSupport.stream(entry.getAsJsonArray("parents").spliterator(), false).map(JsonElement::getAsString).map(NodeParent::parse).collect(Collectors.toList());
+            // expecting key, name, desc, icons, category, x, y, sections
+            ResourceLocation key = new ResourceLocation(node.get("key").getAsString());
+            String name = node.get("name").getAsString();
+            String desc = node.has("desc") ? node.get("desc").getAsString() : "";
+            List<Icon> icons = idsToIcons(node.getAsJsonArray("icons"), rl);
+            BookTab tab = Books.getTab(new ResourceLocation(node.get("category").getAsString()));
+            int x = node.get("x").getAsInt();
+            int y = node.get("y").getAsInt();
+            List<BookPage> pages = jsonToSections(node.getAsJsonArray("sections"), rl);
 
-                List<String> meta = new ArrayList<>();
-                if(entry.has("meta"))
-                    meta = StreamSupport.stream(entry.getAsJsonArray("meta").spliterator(), false).map(JsonElement::getAsString).collect(Collectors.toList());
+            // optionally parents, meta
+            List<NodeParent> parents = new ArrayList<>();
+            if(node.has("parents"))
+                parents = StreamSupport.stream(node.getAsJsonArray("parents").spliterator(), false).map(JsonElement::getAsString).map(NodeParent::parse).collect(Collectors.toList());
 
-                BookNode entryObject = new BookNode(key, pages, icons, meta, parents, category, name, desc, x, y);
-                //category.nodes.putIfAbsent(key, entryObject); //TODO re-instate. currently the nodes reference is bad because nodes are no longer directly under tabs.
-                pages.forEach(page -> page.node = entryObject.key());
-            }
+            List<String> meta = new ArrayList<>();
+            if(node.has("meta"))
+                meta = StreamSupport.stream(node.getAsJsonArray("meta").spliterator(), false).map(JsonElement::getAsString).collect(Collectors.toList());
+
+            BookNode nodeObject = new BookNode(key, pages, icons, meta, parents, tab, name, desc, x, y);
+            //category.nodes.put(key, nodeObject); //TODO re-instate. currently the nodes reference is bad because nodes are no longer directly under tabs.
+            pages.forEach(page -> page.node = nodeObject.key());
         }
     }
 
@@ -127,9 +161,13 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
             JsonArray categories = json.getAsJsonArray("categories");
             tabQueue.put(rl, categories);
         }
+        if(json.has("layers")){
+            JsonArray layers = json.getAsJsonArray("layers");
+            layerQueue.put(rl, layers);
+        }
         if(json.has("entries")){
-            JsonArray entries = json.getAsJsonArray("entries");
-            nodeQueue.put(rl, entries);
+            JsonArray nodes = json.getAsJsonArray("entries");
+            nodeQueue.put(rl, nodes);
         }
     }
 
@@ -139,13 +177,13 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
             ret.add(Icon.fromString(element.getAsString()));
         }
         if(ret.isEmpty())
-            LOG.error("An entry has 0 icons in " + rl + "!");
+            LOG.error("A node has 0 icons in " + rl + "!");
         return ret;
     }
 
-    private static List<BookPage> jsonToPages(JsonArray pages, ResourceLocation file){
+    private static List<BookPage> jsonToSections(JsonArray sections, ResourceLocation file){
         List<BookPage> ret = new ArrayList<>();
-        for(JsonElement sectionElement : pages)
+        for(JsonElement sectionElement : sections)
             if(sectionElement.isJsonObject()){
                 // expecting type, content
                 JsonObject page = sectionElement.getAsJsonObject();
@@ -163,9 +201,9 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
                     es.addOwnRequirements();
                     ret.add(es);
                 }else if(BookPage.getFactory(type) == null)
-                    LOG.error("Invalid EntrySection type \"" + type + "\" referenced in " + file + "!");
+                    LOG.error("Invalid Section type \"" + type + "\" referenced in " + file + "!");
                 else
-                    LOG.error("Invalid EntrySection content \"" + content + "\" for type \"" + type + "\" used in file " + file + "!");
+                    LOG.error("Invalid Section content \"" + content + "\" for type \"" + type + "\" used in file " + file + "!");
             }else
                 LOG.error("Non-object found in sections array in " + file + "!");
         return ret;
@@ -233,11 +271,12 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
         return ret;
     }
 
-    @Override @ParametersAreNonnullByDefault
-    protected void apply(Map<ResourceLocation, JsonElement> jobject, ResourceManager manager, ProfilerFiller prof) {
-        LOG.info("BookLoader Running !");
+    @ParametersAreNonnullByDefault
+    @Override protected void apply(Map<ResourceLocation, JsonElement> jobject, ResourceManager manager, ProfilerFiller prof) {
+        LOG.info("BookLoader running !");
         bookQueue.clear();
         tabQueue.clear();
+        layerQueue.clear();
         nodeQueue.clear();
 
         jobject.forEach((location, object1) -> {
@@ -247,6 +286,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
 
         bookQueue.forEach(BookLoader::applyBooksArray);
         tabQueue.forEach(BookLoader::applyTabsArray);
+        layerQueue.forEach(BookLoader::applyLayersArray);
         nodeQueue.forEach(BookLoader::applyNodesArray);
     }
 }

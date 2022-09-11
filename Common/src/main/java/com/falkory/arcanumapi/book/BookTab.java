@@ -1,16 +1,22 @@
 package com.falkory.arcanumapi.book;
 
 import com.falkory.arcanumapi.book.layers.BookLayer;
+import com.falkory.arcanumapi.book.layers.ImageLayer;
 import com.falkory.arcanumapi.book.layers.NodeLayer;
 import com.falkory.arcanumapi.client.gui.BookMainScreen;
 import com.falkory.arcanumapi.util.Identifiable;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
+
+import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 
 public class BookTab implements Identifiable {
     
@@ -19,12 +25,13 @@ public class BookTab implements Identifiable {
     private ResourceLocation key;
 
     private ResourceLocation icon, requirement;
-    private Map<Number, BookLayer> layers;
+    protected Map<ResourceLocation, BookLayer> layers;
 
+    // this instance's position in the load order! (i get it now I'm sorry luna)
+    protected int serializationIndex = 0;
 
-    protected int serializationIndex = 0; //todo dunno what this is but it sound like jank
-
-    public BookTab(Map<Number, BookLayer> layers, ResourceLocation key, ResourceLocation icon, ResourceLocation requirement, String name, BookMain in){
+    @ParametersAreNonnullByDefault
+    public BookTab(ResourceLocation key, Map<ResourceLocation, BookLayer> layers, ResourceLocation icon, ResourceLocation requirement, String name, BookMain in){
         this.layers = layers;
         this.key = key;
         this.requirement = requirement;
@@ -64,7 +71,7 @@ public class BookTab implements Identifiable {
         return new ArrayList<>(layers.values());
     }
 
-    int serializationIndex(){
+    public int serializationIndex(){
         return serializationIndex;
     }
 
@@ -76,4 +83,11 @@ public class BookTab implements Identifiable {
         layers.values().forEach(layer -> layer.render(stack, parent, drawSize, spd));
     }
 
+    //this is just a funny ok? just a little humor
+    public static BookTab makeUnfound(BookMain book) {
+        ResourceLocation unfoundImage = AmId("textures/gui/book/tab_not_found.png");
+        HashMap<ResourceLocation, BookLayer> layermap = new HashMap<>();
+        layermap.put(new ResourceLocation("unfound_layer"), new ImageLayer(unfoundImage.toString()));
+        return new BookTab(AmId("tab_not_found"), layermap, unfoundImage, null, "Tab not found", book);
+    }
 }

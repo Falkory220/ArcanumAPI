@@ -28,10 +28,9 @@ public abstract class BookPage implements Identifiable {
     }
 
     public static BookPage makeSection(ResourceLocation type, String content){
-        if(getFactory(type) != null)
-            return getFactory(type).apply(content);
-        else
-            return null;
+        if(getFactory(type) == null) return null;
+
+        return getFactory(type).apply(content);
     }
 
     public static BookPage deserialize(CompoundTag passData){

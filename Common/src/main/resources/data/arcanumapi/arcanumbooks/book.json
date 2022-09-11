@@ -1,0 +1,46 @@
+{
+  "books": [
+    {
+      "key": "arcanumapi:arcanum",
+      "prefix": "arcanum"
+    }
+  ],
+  "categories": [
+    {
+      "key": "arcanumapi:overworld",
+      "in": "arcanumapi:arcanum",
+      "icon": "minecraft:dirt",
+      "name": "research.arcanumapi.category.overworld"
+    },
+    {
+      "key": "arcanumapi:eldritch",
+      "in": "arcanumapi:arcanum",
+      "icon": "minecraft:coal",
+      "name": "research.arcanumapi.category.eldritch"
+    }
+  ],
+  "layers": [
+    {
+      "key": "arcanumapi:overworld_background",
+      "in": ["arcanumapi:overworld"],
+      "priority": 0.0,
+      "type": "arcanumapi:image",
+      "image": "minecraft:block/grass_block_side"
+    },
+    {
+      "key": "arcanumapi:eldritch_background",
+      "in": ["arcanumapi:eldritch"],
+      "priority": 0.0,
+      "type": "arcanumapi:image",
+      "image": "minecraft:block/netherrack"
+    },
+    {
+      "key": "arcanumapi:eldritch_case",
+      "in": ["arcanumapi:eldritch","arcanumapi:overworld"],
+      "priority": 1,
+      "type": "arcanumapi:image",
+      "image": "minecraft:block/glass",
+      "speed": 1.1
+    }
+  ]
+}

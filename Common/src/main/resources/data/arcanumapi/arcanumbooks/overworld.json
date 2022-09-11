@@ -16,7 +16,7 @@
       "y": 0,
       "sections": [
         {
-          "type": "string,",
+          "type": "string",
           "content": "research.wood.root.text"
         }
       ]
