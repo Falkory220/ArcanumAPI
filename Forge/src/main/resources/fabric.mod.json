@@ -1,0 +1,29 @@
+{
+    "schemaVersion": 1,
+    "id": "arcanumapi",
+    "version": "${version}",
+  
+    "name": "Arcanum API",
+    "description": "An X-plat API for presentable, data-driven mod documentation based on the Arcana project. \nFabric build.",
+    "authors": [
+      "Falkory"
+    ],
+    "contact": {
+      "homepage": "https://github.com/Falkory220/ArcanumAPI",
+      "sources": "https://github.com/Falkory220/ArcanumAPI",
+      "issues": "https://github.com/Falkory220/ArcanumAPI/issues"
+    },
+    "custom": {
+      "modmenu": {
+        "badges": ["library"]
+      }
+    },
+  
+    "license": "CC0-1.0",
+  
+
+    "depends": {
+      "forge": "*"
+    }
+  }
+  

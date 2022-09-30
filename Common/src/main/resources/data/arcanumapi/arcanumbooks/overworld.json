@@ -20,6 +20,27 @@
           "content": "research.wood.root.text"
         }
       ]
+    },
+    {
+      "key": "overworld:stone",
+      "name": "reasearch.stone",
+      "desc": "research.stone.desc",
+      "icons": [
+        "minecraft:stone"
+      ],
+      "category": "arcanumapi:overworld",
+      "parents": ["overworld:root"],
+      "meta": [
+        "spiky_base"
+      ],
+      "x": 0,
+      "y": 0,
+      "sections": [
+        {
+          "type": "string",
+          "content": "research.stone.text"
+        }
+      ]
     }
   ]
 }
