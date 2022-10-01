@@ -1,7 +1,6 @@
 package com.falkory.arcanumapi.book;
 
 import com.falkory.arcanumapi.book.content.Pin;
-import com.falkory.arcanumapi.util.Identifiable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 
 import static com.falkory.arcanumapi.util.StreamUtils.streamAndApply;
 
-public class BookNode implements Identifiable {
+public class BookNode {
 
     private ResourceLocation key;
     private List<BookPage> pages;
@@ -45,7 +44,6 @@ public class BookNode implements Identifiable {
         this.y = y;
     }
 
-    @Override
     public ResourceLocation key() {
         return key;
     }

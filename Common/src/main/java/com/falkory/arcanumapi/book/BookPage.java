@@ -3,7 +3,6 @@ package com.falkory.arcanumapi.book;
 import com.falkory.arcanumapi.book.content.Pin;
 import com.falkory.arcanumapi.book.content.StringSection;
 import com.falkory.arcanumapi.book.content.CraftingSection;
-import com.falkory.arcanumapi.util.Identifiable;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +15,7 @@ import java.util.stream.Stream;
 import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 import static com.falkory.arcanumapi.util.StreamUtils.streamAndApply;
 
-public abstract class BookPage implements Identifiable {
+public abstract class BookPage {
 
     // static stuff
     // when addon support is to be added: change this from strings to ResourceLocations so mods can register more
@@ -120,8 +119,7 @@ public abstract class BookPage implements Identifiable {
     public Stream<Pin> getPins(int index, Level world, BookNode entry){
         return Stream.empty();
     }
-    
-    @Override
+
     public ResourceLocation key() {
         return key;
     }

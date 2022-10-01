@@ -4,7 +4,6 @@ import com.falkory.arcanumapi.book.layers.BookLayer;
 import com.falkory.arcanumapi.book.layers.ImageLayer;
 import com.falkory.arcanumapi.book.layers.NodeLayer;
 import com.falkory.arcanumapi.client.gui.BookMainScreen;
-import com.falkory.arcanumapi.util.Identifiable;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 
@@ -13,12 +12,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 
-public class BookTab implements Identifiable {
+public class BookTab {
     
     private BookMain in;
     private String name; //TODO should be a translatable, yeah?

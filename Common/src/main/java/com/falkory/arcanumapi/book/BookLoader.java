@@ -33,7 +33,10 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
 
     //TODO custom namespacing method for un-namespaced resource locations in read locations, to reduce clutter in the case of hand-writing
 
-    public BookLoader() {super(GSON, "arcanumbooks"); LOG.info("Made a new BookLoader!");}
+    public BookLoader() {
+        super(GSON, "arcanumbooks");
+        LOG.info("Made a new BookLoader!");
+    }
 
     //notes: removed prefixes from source
     private static void applyBooksArray(ResourceLocation rl, JsonArray books){
@@ -288,5 +291,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
         tabQueue.forEach(BookLoader::applyTabsArray);
         layerQueue.forEach(BookLoader::applyLayersArray);
         nodeQueue.forEach(BookLoader::applyNodesArray);
+
+        Books.initBooks();
     }
 }
