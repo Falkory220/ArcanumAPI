@@ -16,8 +16,8 @@ public class BookMainScreen extends AbstractBookScreen{
 
     //this is a funny way to make this persistent across instances alsdkjfhn
     //this is awful probably? todo cry about it later
-    public static float xPan = 0;
-    public static float yPan = 0;
+    private static float xPan = 0;
+    private static float yPan = 0;
     public static float targetZoom = 1.0f;
     public static float zoom = targetZoom;
 
@@ -38,20 +38,14 @@ public class BookMainScreen extends AbstractBookScreen{
     }
 
     @Override public void render(PoseStack stack, int $$1, int $$2, float tickDelta) {
+        //should tick this on render to avoid jumping at low framerates, nya
+        smoothZoom(tickDelta);
 
         //this used to be in the arcana config, copied default settings todo make user config option
         int frameWidth = width - 60;
         int frameHeight = height - 20;
         int frameSize = Math.max(frameWidth, frameHeight);
 
-        float diff = targetZoom - zoom;
-        if (abs(diff) < 0.05f) {targetZoom = zoom;} else {
-            float smoothDelta = Math.min(tickDelta * (2 / 3f), 1) * diff;
-            float scalar = smoothDelta*(1/zoom)/zoom; // todo so close to focused zoom I can taste it
-            xPan -= xPan*scalar;
-            yPan -= yPan*scalar;
-            zoom += smoothDelta;
-        }
         int zoomDrawSize = (int)(frameSize*zoom);
 
 
@@ -63,11 +57,12 @@ public class BookMainScreen extends AbstractBookScreen{
         bookWidth = frameWidth - 32;
         bookHeight = frameHeight - 34;
 
+        maxPanX = (zoomDrawSize- bookWidth)/2f;
+        maxPanY = (zoomDrawSize- bookHeight)/2f;
+
         GL11.glScissor(minBookX * scale, minBookY * scale, bookWidth * scale, bookHeight * scale);
         // scissors on
         GL11.glEnable(GL_SCISSOR_TEST);
-        maxPanX = (zoomDrawSize- bookWidth)/2f;
-        maxPanY = (zoomDrawSize- bookHeight)/2f;
 
         getBook().getCurrentTab().render(stack, this, frameSize, tickDelta);
 
@@ -78,18 +73,38 @@ public class BookMainScreen extends AbstractBookScreen{
 
         super.render(stack, $$1, $$2, tickDelta);
     }
-    private void drawDebug(PoseStack stack){
+    protected void smoothZoom(float tickDelta){
+        float diff = targetZoom - zoom;
+        if (abs(diff) < 0.05f) {targetZoom = zoom;} else {
+            float smoothDelta = Math.min(tickDelta * (2 / 3f), 1) * diff;
+            float scalar = smoothDelta*(1/zoom)/zoom; // todo so close to focused zoom I can taste it
+            setXPan(xPan - xPan*scalar);
+            setYPan(yPan - yPan*scalar);
+            zoom += smoothDelta;
+        }
+    }
+
+    protected void drawDebug(PoseStack stack){
         drawString(stack, this.font, "zoom:"+((Float)zoom), 0, 0, 1);
         drawString(stack, this.font, "x:"+xPan+"   y:"+yPan,0,10,1);
     }
 
+    public void setXPan(float newPan){
+        if (Float.isNaN(newPan)) return;
+        xPan = clamp(newPan, -1f, 1f);
+    }
+    public float getXPan(){return xPan;}
+    public void setYPan(float newPan){
+        if(Float.isNaN(newPan)) return;
+        yPan = clamp(newPan, -1f, 1f);
+    }
+    public float getYPan(){return yPan;}
+
     @Override public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY){
         if(inWindow(mouseX, mouseY)) {
             if(Float.isNaN(xPan + yPan)){xPan=0;yPan=0;}
-            xPan -= (deltaX * ZOOM_MULTIPLIER) / (zoom * maxPanX);
-            yPan -= (deltaY * ZOOM_MULTIPLIER) / (zoom * maxPanY);
-            xPan = clamp(xPan, -1f, 1f);
-            yPan = clamp(yPan, -1f, 1f);
+            setXPan((float)(xPan - (deltaX * ZOOM_MULTIPLIER) / (zoom * maxPanX)));
+            setYPan((float)(yPan - (deltaY * ZOOM_MULTIPLIER) / (zoom * maxPanY)));
         }
         return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
     }

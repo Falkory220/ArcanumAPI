@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 public class Books {
 
-    //now it knows why they don't use registries. gosh todo reach out about this?
     public static ArrayList<ResourceLocation> DISABLED = new ArrayList<>();
     public static Map<ResourceLocation, BookMain> BOOKS = new LinkedHashMap<>(); //TODO make private with accessor?
 
@@ -46,6 +45,10 @@ public class Books {
 
     public static List<BookNode> getChildrenOf(BookNode parent){
         return streamChildrenOf(parent).collect(Collectors.toList());
+    }
+
+    static void initBooks(){
+        getBooks().forEach(BookMain::init);
     }
 
 

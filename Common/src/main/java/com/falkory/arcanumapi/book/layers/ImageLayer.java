@@ -18,6 +18,7 @@ public class ImageLayer extends BookLayer {
     public static ResourceLocation TYPE = AmId("image");
 
     private ResourceLocation image;
+    private float tiles = 1;
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -50,6 +51,15 @@ public class ImageLayer extends BookLayer {
             LOGGER.error("Field \"image\" for an image background layer was not a string, in " + file + "!");
             return;}
 
+        JsonPrimitive tilePrim = data.getAsJsonPrimitive("tileamt");
+        if(tilePrim != null){
+            if(!tilePrim.isNumber()){
+                this.tiles = tilePrim.getAsFloat();
+            }else{
+                LOGGER.error("Field \"tileamt\" for image tiling coefficient was not a number, in " + file + "!");
+            }
+        }
+
         ResourceLocation base = new ResourceLocation(imagePrim.getAsString());
         image = new ResourceLocation(base.getNamespace(), "textures/" + base.getPath() + ".png");
     }
@@ -58,10 +68,10 @@ public class ImageLayer extends BookLayer {
         float zoomSize = drawSize*BookMainScreen.zoom;
         float scaledSize = zoomSize*speed;
         drawDualScaledSprite(stack, BookMainScreen.minBookX, BookMainScreen.minBookY,
-          (((2f * BookMainScreen.maxPanX * BookMainScreen.xPan /(zoomSize- BookMainScreen.bookWidth))+1)*(scaledSize- BookMainScreen.bookWidth))/2f,
-          (((2f * BookMainScreen.maxPanY * BookMainScreen.yPan /(zoomSize- BookMainScreen.bookHeight))+1)*(scaledSize- BookMainScreen.bookHeight))/2f,
+          (((2f * BookMainScreen.maxPanX * parent.getXPan() /(zoomSize- BookMainScreen.bookWidth))+1)*(scaledSize- BookMainScreen.bookWidth))/2f,
+          (((2f * BookMainScreen.maxPanY * parent.getYPan() /(zoomSize- BookMainScreen.bookHeight))+1)*(scaledSize- BookMainScreen.bookHeight))/2f,
           parent.width, parent.height,
-          (int)(scaledSize), (int)(scaledSize),
+          (int)(scaledSize/tiles), (int)(scaledSize/tiles),
           image);
     }
 }

@@ -1,8 +1,6 @@
 package com.falkory.arcanumapi.book;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
-import com.falkory.arcanumapi.util.IDisableable;
-import com.falkory.arcanumapi.util.Identifiable;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -12,7 +10,7 @@ import java.util.stream.Stream;
 
 import static com.falkory.arcanumapi.book.BookTab.makeUnfound;
 
-public class BookMain implements IDisableable, Identifiable {
+public class BookMain {
 
     protected Map<ResourceLocation, BookTab> tabs;
     private ResourceLocation key;
@@ -74,8 +72,14 @@ public class BookMain implements IDisableable, Identifiable {
         return Collections.unmodifiableMap(tabs);
     }
 
-    @Override
     public ResourceLocation key() {
         return key;
+    }
+
+    /**
+     * Gets called for each registered book after all books are loaded.
+     * */
+    protected void init(){
+        this.setTabKey(tabs.keySet().iterator().next());
     }
 }

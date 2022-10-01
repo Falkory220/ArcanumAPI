@@ -36,7 +36,6 @@ public abstract class AbstractBookScreen extends Screen {
     }
 
     @Override public void onClose() {
-        super.onClose();
-        if(parentScreen != null) Minecraft.getInstance().setScreen(parentScreen);
+        Minecraft.getInstance().setScreen(parentScreen);
     }
 }
