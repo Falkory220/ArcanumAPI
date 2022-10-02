@@ -8,7 +8,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.falkory.arcanumapi.book.BookTab.makeUnfound;
 
 public class BookMain {
 
@@ -31,7 +30,7 @@ public class BookMain {
     }
 
     public BookTab getCurrentTab() {
-        return tabs.getOrDefault(tabKey, makeUnfound(this));
+        return tabs.getOrDefault(tabKey, BookTab.unfoundTab);
     }
 
     public void setTabKey(ResourceLocation newKey) {

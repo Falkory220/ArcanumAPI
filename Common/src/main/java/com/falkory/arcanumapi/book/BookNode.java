@@ -131,8 +131,8 @@ public class BookNode {
             return true;
         if(!(o instanceof BookNode))
             return false;
-        BookNode entry = (BookNode)o;
-        return key.equals(entry.key);
+        BookNode node = (BookNode)o;
+        return key.equals(node.key);
     }
 
     public int hashCode(){

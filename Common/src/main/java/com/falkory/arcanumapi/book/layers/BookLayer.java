@@ -1,7 +1,6 @@
 package com.falkory.arcanumapi.book.layers;
 
 import com.falkory.arcanumapi.client.gui.BookMainScreen;
-import com.falkory.arcanumapi.util.Identifiable;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.nbt.CompoundTag;
@@ -12,7 +11,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public abstract class BookLayer implements Identifiable {
+public abstract class BookLayer {
     // this whole thing is one biiig snip (thank you Luna)
 
     ////////// static stuff
