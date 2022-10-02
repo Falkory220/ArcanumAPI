@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book;
 
+//modified from net.arcanamod.systems.research.Requirement
+
 import com.falkory.arcanumapi.book.content.requirements.ItemRequirement;
 import com.falkory.arcanumapi.book.content.requirements.ItemTagRequirement;
 import com.falkory.arcanumapi.book.content.requirements.XpRequirement;

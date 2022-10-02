@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.client.gui;
 
+//modified from net.arcanamod.client.gui.ResearchBookScreen
+
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookMain;
 import com.mojang.blaze3d.vertex.PoseStack;

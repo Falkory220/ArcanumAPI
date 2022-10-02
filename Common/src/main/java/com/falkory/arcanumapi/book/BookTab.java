@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book;
 
+//modified from net.arcanamod.systems.research.ResearchCategory
+
 import com.falkory.arcanumapi.book.layers.BookLayer;
 import com.falkory.arcanumapi.book.layers.ImageLayer;
 import com.falkory.arcanumapi.book.layers.NodeLayer;

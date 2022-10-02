@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book;
 
+//modified from net.arcanamod.systems.research.ResearchEntry
+
 import com.falkory.arcanumapi.book.content.Pin;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

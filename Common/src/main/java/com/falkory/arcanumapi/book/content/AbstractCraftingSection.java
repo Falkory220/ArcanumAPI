@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book.content;
 
+//modified from net.arcanamod.systems.research.impls.AbstractCraftingSection
+
 import com.falkory.arcanumapi.book.BookNode;
 import com.falkory.arcanumapi.book.BookPage;
 import com.falkory.arcanumapi.book.Icon;

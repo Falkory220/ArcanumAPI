@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book.content;
 
+//modified from net.arcanamod.systems.research.impls.CraftingSection
+
 import com.falkory.arcanumapi.book.content.AbstractCraftingSection;
 import net.minecraft.resources.ResourceLocation;
 

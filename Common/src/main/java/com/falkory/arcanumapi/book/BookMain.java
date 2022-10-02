@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book;
 
+//modified from net.arcanamod.systems.research.ResearchBook
+
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import net.minecraft.resources.ResourceLocation;
 

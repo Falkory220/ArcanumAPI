@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book;
 
+//modified from net.arcanamod.systems.research.ResearchBooks
+
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
