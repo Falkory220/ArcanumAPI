@@ -1,12 +1,14 @@
 package com.falkory.arcanumapi.book;
 
+//modified from net.arcanamod.systems.research.Parent
+
 import net.minecraft.ResourceLocationException;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class NodeParent {
-    // this whole thing is one biiig snip (thank you Luna)
+
     //TODO rip and tear (separate node linking and unlock conditions)
 
     ResourceLocation entry;

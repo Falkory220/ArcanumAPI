@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book.layers;
 
+//modified from net.arcanamod.systems.impls.ImageLayer
+
 import com.falkory.arcanumapi.client.gui.BookMainScreen;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -13,7 +15,6 @@ import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 import static com.falkory.arcanumapi.client.gui.ClientGuiUtils.drawDualScaledSprite;
 
 public class ImageLayer extends BookLayer {
-    // this whole thing was one biiig snip (thank you Luna)
 
     public static ResourceLocation TYPE = AmId("image");
 

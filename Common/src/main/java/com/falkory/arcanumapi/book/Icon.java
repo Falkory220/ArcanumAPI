@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book;
 
+// Modified from net.arcanamod.systems.research.Icon
+
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
@@ -16,8 +18,6 @@ import java.util.Collection;
 import java.util.regex.Pattern;
 
 public class Icon {
-    // this whole thing is one biiig snip (thank you Luna)
-
 
     // Either an item, with optional NBT data, or an direct image reference.
     // Images are assumed to be in <namespace>:textures/.

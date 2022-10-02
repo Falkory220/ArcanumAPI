@@ -1,5 +1,7 @@
 package com.falkory.arcanumapi.book.layers;
 
+//modified from net.arcanamod.systems.research.BackgroundLayer
+
 import com.falkory.arcanumapi.client.gui.BookMainScreen;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -12,7 +14,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public abstract class BookLayer {
-    // this whole thing is one biiig snip (thank you Luna)
 
     ////////// static stuff
 
