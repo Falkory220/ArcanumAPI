@@ -9,13 +9,13 @@
     {
       "key": "arcanumapi:overworld",
       "in": "arcanumapi:arcanum",
-      "icon": "minecraft:dirt",
+      "icon": "arcanumapi:item/arcanum.png",
       "name": "research.arcanumapi.category.overworld"
     },
     {
       "key": "arcanumapi:eldritch",
       "in": "arcanumapi:arcanum",
-      "icon": "minecraft:coal",
+      "icon": "minecraft:item/coal.png",
       "name": "research.arcanumapi.category.eldritch"
     }
   ],
@@ -25,22 +25,37 @@
       "in": ["arcanumapi:overworld"],
       "priority": 0.0,
       "type": "arcanumapi:image",
-      "image": "minecraft:block/grass_block_side"
+      "image": "arcanumapi:gui/book/bg1"
     },
     {
       "key": "arcanumapi:eldritch_background",
       "in": ["arcanumapi:eldritch"],
       "priority": 0.0,
       "type": "arcanumapi:image",
-      "image": "minecraft:block/netherrack"
+      "image": "arcanumapi:gui/book/bg2",
+      "speed": 0.9
     },
     {
-      "key": "arcanumapi:eldritch_case",
+      "key": "arcanumapi:bg_case",
       "in": ["arcanumapi:eldritch","arcanumapi:overworld"],
       "priority": 1,
       "type": "arcanumapi:image",
       "image": "minecraft:block/glass",
       "speed": 1.1
+    },
+    {
+      "key": "arcanumapi:overworld_nodes",
+      "in": ["arcanumapi:overworld"],
+      "priority": 0,
+      "type": "arcanumapi:nodetrees"
+    },
+    {
+      "key": "arcanumapi:test_bg",
+      "in": ["arcanumapi:test_0", "arcanumapi:test_1", "arcanumapi:test_2", "arcanumapi:test_3", "arcanumapi:test_4", "arcanumapi:test_5", "arcanumapi:test_6", "arcanumapi:test_7", "arcanumapi:test_8", "arcanumapi:test_9", "arcanumapi:test_10", "arcanumapi:test_11", "arcanumapi:test_12", "arcanumapi:test_13", "arcanumapi:test_14", "arcanumapi:test_15", "arcanumapi:test_16", "arcanumapi:test_17", "arcanumapi:test_18", "arcanumapi:test_19", "arcanumapi:test_20", "arcanumapi:test_21", "arcanumapi:test_22", "arcanumapi:test_23", "arcanumapi:test_24", "arcanumapi:test_25", "arcanumapi:test_26", "arcanumapi:test_27", "arcanumapi:test_28", "arcanumapi:test_29"],
+      "priority": 0,
+      "type": "arcanumapi:image",
+      "image": "minecraft:block/jigsaw_bottom",
+      "speed": 1.0
     }
   ]
 }

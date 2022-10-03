@@ -3,6 +3,7 @@ package com.falkory.arcanumapi.book;
 //modified from net.arcanamod.systems.research.ResearchEntry
 
 import com.falkory.arcanumapi.book.content.Pin;
+import com.falkory.arcanumapi.book.layers.BookLayer;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
@@ -27,7 +28,7 @@ public class BookNode {
     private int x, y;
 
     private String name, desc; //do these really,, need to ?
-    private BookTab tab;
+    private BookLayer layer;
 
     //a barebones one for making placeholders. should never be used in production in fact- todo remove
     public BookNode(ResourceLocation key){
@@ -35,10 +36,10 @@ public class BookNode {
     }
 
     //missing a whole bunch of bits because uhhh, they don't exist as types yet oops
-    public BookNode(ResourceLocation key, List<BookPage> pages, List<Icon> icons, List<String> meta, List<NodeParent> parents, BookTab tab, String name, String desc, int x, int y){
+    public BookNode(ResourceLocation key, List<BookPage> pages, List<Icon> icons, List<String> meta, List<NodeParent> parents, BookLayer layer, String name, String desc, int x, int y){
         this.key = key;
         this.pages = pages;
-        this.tab = tab;
+        this.layer = layer;
         this.meta = meta;
         this.name = name;
         this.desc = desc;
@@ -66,8 +67,8 @@ public class BookNode {
         return meta;
     }
 
-    public BookTab tab(){
-        return tab;
+    public BookLayer layer(){
+        return layer;
     }
 
     public String name(){
@@ -115,7 +116,7 @@ public class BookNode {
         return nbt;
     }
 
-    public static BookNode deserialize(CompoundTag nbt, BookTab in){
+    public static BookNode deserialize(CompoundTag nbt, BookLayer in){
         ResourceLocation key = new ResourceLocation(nbt.getString("id"));
         String name = nbt.getString("name");
         String desc = nbt.getString("desc");

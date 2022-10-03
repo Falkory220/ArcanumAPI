@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 public class ClientUtils {
 
     /**
-     * unsafe to call from server.
+     * unsafe to call from server. <p>
      * use {@link com.falkory.arcanumapi.util.SplitUtils#openBookSafe(Player, ResourceLocation, ItemStack)} instead, pretty please
      *  */
     public static void openBookUI(Player player, ResourceLocation book, Screen parentScreen, ItemStack item){

@@ -15,6 +15,7 @@ import java.util.function.BiConsumer;
 
 /** ArcanumAPI's main class for the forge mod loader. <br>
  * This class mostly contains methods to safely delegate to {@link ArcanumCommon}
+ * @see ArcanumCommon
  * @see ArcanumFabric ArcanumFabric (Fabric analogue of this class)
  * */
 //"hey! did you just add this here to quick link between the three in dev" heck yeah I did

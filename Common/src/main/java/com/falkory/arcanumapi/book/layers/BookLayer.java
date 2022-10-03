@@ -100,11 +100,12 @@ public abstract class BookLayer {
 
     public abstract ResourceLocation type();
 
-    /** @return Any subclass-specific data that needs to be recorded by the serializer */
+    /** @return A CompoundTag containing any subclass-specific data that needs to be recorded by the serializer */
     public abstract CompoundTag data();
 
     /** Applies subclass-specific deserialization.
      * @param data The json object passed by the main {@link BookLayer} deserializer
+     * @param file The resource location of the file we're reading the layer from
      * */
     public abstract void load(JsonObject data, ResourceLocation file);
 

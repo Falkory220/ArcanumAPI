@@ -2,6 +2,7 @@ package com.falkory.arcanumapi.book;
 
 //modified from net.arcanamod.systems.research.ResearchBooks
 
+import com.falkory.arcanumapi.book.layers.BookLayer;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.*;
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 
 public class Books {
 
+    //now it knows why they don't use registries. gosh todo reach out about this?
     public static ArrayList<ResourceLocation> DISABLED = new ArrayList<>();
     public static Map<ResourceLocation, BookMain> BOOKS = new LinkedHashMap<>(); //TODO make private with accessor?
 
@@ -27,6 +29,10 @@ public class Books {
 
     public static BookTab getTab(ResourceLocation key){
         return streamTabs().filter(x -> x.key().equals(key)).findFirst().orElse(null);
+    }
+
+    public static BookLayer getLayer(ResourceLocation key){
+        return streamTabs().flatMap(BookTab::streamLayers).filter(x -> x.key().equals(key)).findFirst().orElse(null);
     }
 
     public static Stream<BookNode> streamNodes(){

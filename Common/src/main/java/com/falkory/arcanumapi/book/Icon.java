@@ -17,14 +17,25 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
+/**
+ * An icon associated with a research entry or pin. This can either directly reference an image file, or the texture of an item
+ * with set NBT data.
+ * <p>
+ * An icon is parsed by first checking for an item with an ID that matches the icon. If there is an item, any NBT tags will be
+ * parsed as JSON. If there are no items that correlate to that ID, then an image is checked for in <code>&lt;namespace&gt;:textures/</code>.
+ *
+ * @see BookNode
+ * @see com.falkory.arcanumapi.book.content.Pin
+ * @see TagParser
+ */
 public class Icon {
 
     // Either an item, with optional NBT data, or an direct image reference.
     // Images are assumed to be in <namespace>:textures/.
-    // Any resource locations that point to items are assumed to be items; otherwise its assumed to be an image.
+    // Any resource locations that point to items are assumed to be items; otherwise it's assumed to be an image.
     // NBT data can be encoded too. When NBT data is present, an error will be logged if the reference is not an item.
     // NBT data is added in curly braces after the ID, as valid JSON.
-    // See JsonToNBT.
+    // See TagParser.
 
     private static final Logger LOGGER = LogManager.getLogger();
 

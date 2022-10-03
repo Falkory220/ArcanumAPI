@@ -28,7 +28,7 @@
       "icons": [
         "minecraft:stone"
       ],
-      "category": "arcanumapi:overworld",
+      "layer": "arcanumapi:overworld",
       "parents": ["overworld:root"],
       "meta": [
         "spiky_base"
