@@ -34,7 +34,7 @@ public class BookTabButton extends AbstractBookButton {
         RenderSystem.setShaderTexture(0, tab_bg);
         blit(stack, x-hoverBump, y, 1, 0, 0, Math.min(width+hoverBump, 48), 24, 72, 24);
         for(int drawWidth = 24; (drawWidth += 24) < width+hoverBump;)
-          blit(stack, x+drawWidth-hoverBump, y, 1, 48, 0, Math.max(0, width-drawWidth+hoverBump), 24, 80, 80);
+          blit(stack, x+drawWidth-hoverBump, y, 1, 48, 0, Math.max(0, width-drawWidth+hoverBump), 24, 72, 24);
 
     }
     @Override public void renderButton(PoseStack stack, int $$1, int $$2, float $$3) {
