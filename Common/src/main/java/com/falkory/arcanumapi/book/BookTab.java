@@ -83,11 +83,15 @@ public class BookTab {
         layers.values().forEach(layer -> layer.render(stack, parent, drawSize, spd));
     }
 
+    //todo missing deserialize
+
+    public static BookTab unfoundTab = makeUnfound();
+
     //this is just a funny ok? just a little humor
-    public static BookTab makeUnfound(BookMain book) {
+    private static BookTab makeUnfound() {
         ResourceLocation unfoundImage = AmId("textures/gui/book/tab_not_found.png");
         HashMap<ResourceLocation, BookLayer> layermap = new HashMap<>();
         layermap.put(new ResourceLocation("unfound_layer"), new ImageLayer(unfoundImage.toString()));
-        return new BookTab(AmId("tab_not_found"), layermap, unfoundImage, null, "Tab not found", book);
+        return new BookTab(AmId("tab_not_found"), layermap, unfoundImage, null, "Tab not found", Books.BOOKS.get(AmId("arcanum")));
     }
 }
