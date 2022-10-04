@@ -4,8 +4,8 @@ import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookMain;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -17,7 +17,7 @@ public abstract class AbstractBookScreen extends Screen {
     //List<PinButton> pinButtons;
 
     protected AbstractBookScreen(BookMain book, Screen parentScreen) {
-        super(NarratorChatListener.NO_TITLE);
+        super (Component.translatable(book.key() + "screen"));
         this.book = book;
         this.parentScreen = parentScreen;
         this.height = Minecraft.getInstance().getWindow().getHeight();
