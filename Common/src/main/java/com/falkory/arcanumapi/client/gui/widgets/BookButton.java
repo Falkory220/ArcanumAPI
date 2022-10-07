@@ -13,28 +13,28 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 
 /**A simple button that has a 16x16 icon and knows which book it's in. */
-public abstract class AbstractBookButton extends AbstractWidget {
+public abstract class BookButton extends AbstractWidget {
     protected final BookMain book;
     //todo make into an Icon object
     private final ResourceLocation icon;
 
-    public AbstractBookButton(BookMain book, ResourceLocation icon, int x, int y, int width, int height, Component component) {
+    protected BookButton(BookMain book, ResourceLocation icon, int x, int y, int width, int height, Component component) {
         super(x, y, width, height, component);
         this.book = book;
         this.icon = icon;
     }
 
-    /**hopefully {@link AbstractBookButton#icon} will be an actual {@link com.falkory.arcanumapi.book.Icon Icon} by the next push. Best to use this for now.*/
     protected ResourceLocation getIcon(){
         return icon;
     }
 
+    /**@see net.minecraft.client.gui.components.AbstractButton#onClick(double, double) AbstractButton.onClick(double x, double y)*/
     @Override public void onClick(double x, double y) {
         super.onClick(x, y);
         onPress();
     }
 
-    /**@see net.minecraft.client.gui.components.AbstractButton#onPress()*/
+    /**@see net.minecraft.client.gui.components.AbstractButton#onPress() AbstractButton.onPress()*/
     public abstract void onPress();
 
     @Override public void renderButton(PoseStack stack, int $$1, int $$2, float $$3) {
@@ -53,16 +53,13 @@ public abstract class AbstractBookButton extends AbstractWidget {
     }
 
     @Override public boolean keyPressed(int $$0, int $$1, int $$2) {
-        if (this.active && this.visible) {
-            if ($$0 != 257 && $$0 != 32 && $$0 != 335) {
-                return false;
-            } else {
-                this.playDownSound(Minecraft.getInstance().getSoundManager());
-                this.onPress();
-                return true;
-            }
-        } else {
-            return false;
+        if (super.keyPressed($$0, $$1, $$2)) return true;
+        if (!this.active || !this.visible) return false;
+        if ($$0 == 257 || $$0 == 32 || $$0 == 335){ // 257:enter, 32:space, 335: enter but different
+            this.playDownSound(Minecraft.getInstance().getSoundManager());
+            this.onPress();
+            return true;
         }
+        return false;
     }
 }

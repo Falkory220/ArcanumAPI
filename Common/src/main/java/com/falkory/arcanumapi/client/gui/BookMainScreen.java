@@ -3,24 +3,17 @@ package com.falkory.arcanumapi.client.gui;
 //modified from net.arcanamod.client.gui.ResearchBookScreen
 
 import com.falkory.arcanumapi.book.BookMain;
-import com.falkory.arcanumapi.book.BookTab;
-import com.falkory.arcanumapi.client.gui.widgets.AbstractBookButton;
-import com.falkory.arcanumapi.client.gui.widgets.BookTabButton;
-import com.falkory.arcanumapi.client.gui.widgets.LayeredWidgetHolder;
+import com.falkory.arcanumapi.client.gui.widgets.BookTabList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.opengl.GL11;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static net.minecraft.util.Mth.abs;
 import static net.minecraft.util.Mth.clamp;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
 
-public class BookMainScreen extends AbstractBookScreen{
+public class BookMainScreen extends BookScreen {
     ItemStack sender;
 
     //this is a funny way to make this persistent across instances alsdkjfhn
@@ -43,8 +36,6 @@ public class BookMainScreen extends AbstractBookScreen{
     private static int frameSize;
 
     private static boolean dragOnCanvas;
-
-    private final List<AbstractBookButton> tabButtons = new ArrayList<>();
 
     public BookMainScreen(BookMain book, Screen parentScreen, ItemStack item) {
         super(book, parentScreen);
@@ -162,43 +153,8 @@ public class BookMainScreen extends AbstractBookScreen{
     }
 
     private void initTabButtons(){
-        tabButtons.clear();
-        int scale = 1;//(int)this.minecraft.getWindow().getGuiScale();
-        //Tabs are x24 textures
-        final int buttonHeight = 24*scale;
-        final int buttonWidth = 24*scale;
-        final int xSpace = 18*scale;
-        final int ySpace = 26*scale;
-
-        //first we figure out how many buttons we need to fit in each column
-        final List<BookTab> tabs = getBook().getTabs();
-        final int columns = (int) Math.ceil((tabs.size()*ySpace + buttonHeight)/(float)bookHeight);
-        if(columns > 2){
-            int columnEated = (int) Math.ceil((columns-2)*xSpace);
-            bookWidth -= columnEated; minBookX += columnEated;
-        }
-
-        LayeredWidgetHolder tabsHolder = new LayeredWidgetHolder();
-        addRenderableWidget(tabsHolder);
-
-        int tabOffset = 0;
-        int left = 0;
-        for (BookTab tab : tabs){
-            BookTabButton tabLink = new BookTabButton(getBook(), tab.key(),
-              minBookX + (left * -xSpace) - buttonWidth,
-              minBookY + (tabOffset),
-              buttonWidth + (left * xSpace), Component.empty());
-            tabButtons.add(tabLink);
-            tabsHolder.addLayeredWidget(tabLink);
-            //make our selected tab stay selected
-            if(tab.key() == getBook().getTabKey()) tabsHolder.select(tabLink);
-
-            tabOffset += ySpace;
-            if(tabOffset + ySpace > bookHeight ) {
-                left += 1;
-                tabOffset = (int)(buttonHeight/columns)*(left % columns);
-            }
-        }
+        var tabList = addSubscreen(new BookTabList(this));
+        tabList.setPos(0, minBookY);
     }
 
     @Override

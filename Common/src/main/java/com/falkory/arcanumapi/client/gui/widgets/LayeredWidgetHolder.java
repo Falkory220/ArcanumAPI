@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
-import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.apache.commons.compress.utils.Lists;
@@ -12,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
 /**
  * A widget that holds a group of widgets that may overlap,
@@ -22,7 +22,7 @@ import java.util.ListIterator;
  * @see GuiEventListener
  * @see Screen
  * */
-public class LayeredWidgetHolder extends Screen implements NarratableEntry{
+public class LayeredWidgetHolder extends Subscreen {
     /**@see Screen#renderables*/
     protected final List<Widget> renderables = Lists.newArrayList();
     private boolean mouseSinceTab = false;
@@ -40,18 +40,14 @@ public class LayeredWidgetHolder extends Screen implements NarratableEntry{
         return addRenderableWidget(widget);
     }
 
-    /**@see LayeredWidgetHolder#clearWidgets()*/
-    public void clear(){
-        clearWidgets();
-    }
-
     /**
      * Updates the {@link LayeredWidgetHolder LayeredWidgetHolder's} focus to a contained {@link Widget widget}.
      * @param widget {@link Widget} to focus. Can be nulled to focus nothing.
      * */
     public void select(@Nullable Widget widget){
+        mouseSinceTab = false;
         if(getFocused() != null) {
-            // we always unfocus
+            // we always unfocus current if possible before selecting new
             if(getFocused().changeFocus(true)) getFocused().changeFocus(true);
         }
         if(!renderables.contains(widget) || widget == null) {setFocused(null); return;}
@@ -70,20 +66,11 @@ public class LayeredWidgetHolder extends Screen implements NarratableEntry{
     @Override public void render(PoseStack poseStack, int mx, int my, float v) {
         ListIterator<Widget> iterator = this.renderables.listIterator(this.renderables.size());
         while(iterator.hasPrevious()) iterator.previous().render(poseStack, mx, my, v);
-
-        // have only one hovered object in the holder
-        //TODO: mouse events won't trigger unless it's the active screen. Widgetification is at stake
-        //if(!mouseSinceTab) return; // keeping us tab friendly, nya
-        getChildAt(mx, my).ifPresentOrElse(
-          c -> {if (!c.equals(getFocused())) select((Widget)c);},
-          ()-> {if(getFocused() != null) select(null);}
-        );
-        //mouseSinceTab = false;
     }
 
     //Screen
     /**
-     * Intercepts widget clearing to make sure we clear our local {@link this.renderables} list when needed.
+     * Intercepts widget clearing to make sure we clear our local {@link LayeredWidgetHolder#renderables} list when needed.
      * @see LayeredWidgetHolder#addLayeredWidget(GuiEventListener)
      * */
     @Override protected void clearWidgets() {
@@ -91,16 +78,14 @@ public class LayeredWidgetHolder extends Screen implements NarratableEntry{
         super.clearWidgets();
     }
 
-    @Override public void afterMouseMove() {
-        mouseSinceTab = true;
-        super.afterMouseMove();
+    @Override public void mouseMoved(double mx, double my) {
+        Optional<GuiEventListener> nya = getChildAt(mx, my);
+        if(nya.isPresent()){
+            if (!nya.get().equals(getFocused())) select((Widget)nya.get());
+            mouseSinceTab = true;
+        } else {
+            if(getFocused() != null && mouseSinceTab) select(null);
+        }
+        super.mouseMoved(mx, my);
     }
-
-    //NarratableEntry
-
-    @Override public NarrationPriority narrationPriority() {
-        return NarrationPriority.NONE;
-    }
-
-    @Override public void updateNarration(NarrationElementOutput narrationElementOutput) {}
 }

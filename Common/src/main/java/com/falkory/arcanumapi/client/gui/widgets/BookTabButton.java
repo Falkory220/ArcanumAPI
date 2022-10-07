@@ -6,26 +6,41 @@ import com.falkory.arcanumapi.book.BookMain;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 /**
- * Book buttons that link to a tab in their book.
- *
+ * A button that links to a {@link com.falkory.arcanumapi.book.BookTab BookTab} in its {@link BookMain}.
+ * @see BookButton
+ * @see BookTabList
+ * @see com.falkory.arcanumapi.book.BookTab BookTab
  * */
-public class BookTabButton extends AbstractBookButton {
-    ResourceLocation link;
+public class BookTabButton extends BookButton {
+    protected ResourceLocation link;
     private static ResourceLocation tab_bg = AmId("textures/arcanumthemes/default/tab.png");
     private int hoverBump = 0;
 
+    /**
+     * @param book The {@link BookMain} this button links to a tab from.
+     * @param link The {@link com.falkory.arcanumapi.book.BookTab#key key} of the {@link com.falkory.arcanumapi.book.BookTab BookTab} the button should open.
+     * @param x The button's distance from the left of the screen.
+     * @param y The button's distance from the top of the screen.
+     * @param width The button's width.
+     * @param message Narration message. Appears to be unused currently.*/
     public BookTabButton(BookMain book, ResourceLocation link, int x, int y, int width, Component message) {
         super(book, book.getTab(link).icon(), x, y, width, 24, message);
         this.link = link;
     }
 
-    @Override protected void renderBg(PoseStack stack, Minecraft $$1, int $$2, int $$3) {
+    public ResourceLocation getLink() {
+        return link;
+    }
+
+    @Override protected void renderBg(@NotNull PoseStack stack, @NotNull Minecraft $$1, int $$2, int $$3) {
         if(book.getTabKey() == link) hoverBump = 10;
         else if(hoverBump < 5 && isFocused()) hoverBump++;
         else if (hoverBump > 0 && !isFocused()) hoverBump--;
@@ -46,8 +61,12 @@ public class BookTabButton extends AbstractBookButton {
         }
     }
 
-
     @Override public void onPress() {
         book.setTabKey(link);
+    }
+
+    @Override public void updateNarration(@NotNull NarrationElementOutput narrationElementOutput) {
+        narrationElementOutput.add(NarratedElementType.POSITION, this.book.getTab(link).name());
+        super.updateNarration(narrationElementOutput);
     }
 }

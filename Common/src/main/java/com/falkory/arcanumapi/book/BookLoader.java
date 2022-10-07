@@ -95,15 +95,15 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
             }
             JsonObject layerObj = layerElement.getAsJsonObject();
 
-            // expecting key, in, priority, and type. optionals are speed and vanishZoom
-            //if(!parseIsSafe("layer", layerObj, rl, "key","in","priority","type")){continue;}
+            // expecting key, in, and type. optionals are speed and vanishZoom
+            if(!parseIsSafe("layer", layerObj, rl, "key","in","type")){continue;}
 
 
             ResourceLocation type = new ResourceLocation(layerObj.getAsJsonPrimitive("type").getAsString());
             BookLayer layer = BookLayer.makeLayer(
               new ResourceLocation(layerObj.getAsJsonPrimitive("key").getAsString()),
               type,
-              layerObj.getAsJsonPrimitive("priority").getAsFloat(),
+              layerObj.has("priority") ? layerObj.getAsJsonPrimitive("priority").getAsFloat() : 0,
               layerObj,
               rl,
               layerObj.has("speed") ? layerObj.getAsJsonPrimitive("speed").getAsFloat() : 1f,
@@ -114,12 +114,13 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
                 else{LOG.error("Invalid Layer content for type \"" + type + "\" used in file " + rl + "!");}
                 continue;
             }
+            JsonElement inObj = layerObj.get("in");
             LinkedList<ResourceLocation> in = new LinkedList<>();
-            layerObj.getAsJsonArray("in").forEach( i -> in.add(new ResourceLocation(i.getAsString())));
+            if(inObj.isJsonArray()) for(JsonElement i :layerObj.getAsJsonArray("in")) in.add(new ResourceLocation(i.getAsString()));
+            else in.add(new ResourceLocation(inObj.getAsString()));
 
-            Books.streamTabs()
-              .filter(tab -> in.contains(tab.key()))
-              .forEach(tab -> tab.layers.put(layer.key(), layer));
+            for(ResourceLocation t : in) Books.getTab(t).layers.put(layer.key(), layer);
+
         }
     }
 
@@ -135,7 +136,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
             JsonObject node = nodeElement.getAsJsonObject();
 
             // expecting key, name, desc, icons, layer, x, y, sections
-            //if(!parseIsSafe("node", node, rl, "key","name","desc","icons","layer","x","y","sections")){continue;}
+            if(!parseIsSafe("node", node, rl, "key","name","desc","icons","layer","x","y","sections")){continue;}
 
             ResourceLocation key = new ResourceLocation(node.get("key").getAsString());
             String name = node.get("name").getAsString();
