@@ -5,7 +5,7 @@ package com.falkory.arcanumapi.book;
 import com.falkory.arcanumapi.book.layers.BookLayer;
 import com.falkory.arcanumapi.book.layers.ImageLayer;
 import com.falkory.arcanumapi.book.layers.NodeLayer;
-import com.falkory.arcanumapi.client.gui.BookMainScreen;
+import com.falkory.arcanumapi.client.gui.widget.menu.LayerWindow;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.resources.ResourceLocation;
 
@@ -79,7 +79,7 @@ public class BookTab {
         return requirement;
     }
 
-    public void render(PoseStack stack, BookMainScreen parent, float drawSize, float spd){
+    public void render(PoseStack stack, LayerWindow parent, float drawSize, float spd){
         layers.values().forEach(layer -> layer.render(stack, parent, drawSize, spd));
     }
 

@@ -2,7 +2,7 @@ package com.falkory.arcanumapi.book.layers;
 
 //modified from net.arcanamod.systems.impls.ImageLayer
 
-import com.falkory.arcanumapi.client.gui.BookMainScreen;
+import com.falkory.arcanumapi.client.gui.widget.menu.LayerWindow;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -65,12 +65,12 @@ public class ImageLayer extends BookLayer {
         image = new ResourceLocation(base.getNamespace(), "textures/" + base.getPath() + ".png");
     }
 
-    @Override public void render(PoseStack stack, BookMainScreen parent, float drawSize, float tickDelta){
-        float zoomSize = drawSize*BookMainScreen.zoom;
+    @Override public void render(PoseStack stack, LayerWindow parent, float drawSize, float tickDelta){
+        float zoomSize = drawSize*LayerWindow.zoom;
         float scaledSize = zoomSize*speed;
-        drawDualScaledSprite(stack, BookMainScreen.minBookX, BookMainScreen.minBookY,
-          (((2f * BookMainScreen.maxPanX * parent.getXPan() /(zoomSize- BookMainScreen.bookWidth))+1)*(scaledSize- BookMainScreen.bookWidth))/2f,
-          (((2f * BookMainScreen.maxPanY * parent.getYPan() /(zoomSize- BookMainScreen.bookHeight))+1)*(scaledSize- BookMainScreen.bookHeight))/2f,
+        drawDualScaledSprite(stack, parent.x, parent.y,
+          (((2f * LayerWindow.maxPanX * parent.getXPan() /(zoomSize- parent.width))+1)*(scaledSize- parent.width))/2f,
+          (((2f * LayerWindow.maxPanY * parent.getYPan() /(zoomSize- parent.height))+1)*(scaledSize- parent.height))/2f,
           parent.width, parent.height,
           (int)(scaledSize/tiles), (int)(scaledSize/tiles),
           image);

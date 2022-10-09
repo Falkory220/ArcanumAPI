@@ -1,4 +1,4 @@
-package com.falkory.arcanumapi.client.gui.widgets;
+package com.falkory.arcanumapi.client.gui.widget;
 
 import com.falkory.arcanumapi.book.BookMain;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -38,12 +38,12 @@ public abstract class BookButton extends AbstractWidget {
     public abstract void onPress();
 
     @Override public void renderButton(PoseStack stack, int $$1, int $$2, float $$3) {
-        if(visible){
-            renderBg(stack, Minecraft.getInstance(), $$1, $$2);
-            RenderSystem.setShaderColor(1f,1f,1f,1f);
-            RenderSystem.setShaderTexture(0, icon);
-            blit(stack, x + height-18, y + ((height-16)/2), 1, 0, 0, 16, 16, 16, 16);
-        }
+        if(!visible) return;
+
+        renderBg(stack, Minecraft.getInstance(), $$1, $$2);
+        RenderSystem.setShaderColor(1f,1f,1f,1f);
+        RenderSystem.setShaderTexture(0, icon);
+        blit(stack, x + height-18, y + ((height-16)/2), 1, 0, 0, 16, 16, 16, 16);
     }
 
     @Override public void updateNarration(NarrationElementOutput narrationElementOutput) {}

@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -18,7 +19,6 @@ public abstract class BookScreen extends MultiScreen {
     //List<PinButton> pinButtons;
 
     protected BookScreen(BookMain book, Screen parentScreen) {
-        super (Component.translatable(book.key() + "screen"));
         this.book = book;
         this.parentScreen = parentScreen;
         this.height = Minecraft.getInstance().getWindow().getHeight();
@@ -29,7 +29,7 @@ public abstract class BookScreen extends MultiScreen {
         return book;
     }
 
-    @Override public void render(PoseStack stack, int $$1, int $$2, float $$3) {
+    @Override public void render(@NotNull PoseStack stack, int $$1, int $$2, float $$3) {
         super.render(stack, $$1, $$2, $$3);
     }
 

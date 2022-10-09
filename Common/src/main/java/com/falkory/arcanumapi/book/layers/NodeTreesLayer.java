@@ -1,7 +1,7 @@
 package com.falkory.arcanumapi.book.layers;
 
 import com.falkory.arcanumapi.book.BookNode;
-import com.falkory.arcanumapi.client.gui.BookMainScreen;
+import com.falkory.arcanumapi.client.gui.widget.menu.LayerWindow;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.nbt.CompoundTag;
@@ -28,7 +28,7 @@ public class NodeTreesLayer extends BookLayer implements NodeLayer {
 
     @Override public void load(JsonObject data, ResourceLocation file) {}
 
-    @Override public void render(PoseStack stack, BookMainScreen parent, float drawSize, float spd) {
+    @Override public void render(PoseStack stack, LayerWindow parent, float drawSize, float spd) {
 
     }
 

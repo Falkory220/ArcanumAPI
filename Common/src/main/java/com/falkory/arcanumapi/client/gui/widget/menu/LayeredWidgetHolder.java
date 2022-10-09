@@ -1,5 +1,6 @@
-package com.falkory.arcanumapi.client.gui.widgets;
+package com.falkory.arcanumapi.client.gui.widget.menu;
 
+import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -45,6 +46,10 @@ public class LayeredWidgetHolder extends Subscreen {
      * @param widget {@link Widget} to focus. Can be nulled to focus nothing.
      * */
     public void select(@Nullable Widget widget){
+        if(widget == getFocused()) {
+            ArcanumAPI.LOG.info("tried to select already selected tab");
+            return;
+        }
         mouseSinceTab = false;
         if(getFocused() != null) {
             // we always unfocus current if possible before selecting new
@@ -54,8 +59,7 @@ public class LayeredWidgetHolder extends Subscreen {
 
         if(!(widget instanceof GuiEventListener)) return;
         setFocused((GuiEventListener) widget);
-        if(!((GuiEventListener) widget).changeFocus(true))
-            ((GuiEventListener) widget).changeFocus(true);
+        if(!((GuiEventListener) widget).changeFocus(true)) ((GuiEventListener) widget).changeFocus(true);
     }
 
     /**
@@ -66,6 +70,11 @@ public class LayeredWidgetHolder extends Subscreen {
     @Override public void render(PoseStack poseStack, int mx, int my, float v) {
         ListIterator<Widget> iterator = this.renderables.listIterator(this.renderables.size());
         while(iterator.hasPrevious()) iterator.previous().render(poseStack, mx, my, v);
+    }
+
+    //mojang whyyy
+    @Override public boolean changeFocus(boolean $$0) {
+        return super.changeFocus($$0);
     }
 
     //Screen
@@ -81,10 +90,10 @@ public class LayeredWidgetHolder extends Subscreen {
     @Override public void mouseMoved(double mx, double my) {
         Optional<GuiEventListener> nya = getChildAt(mx, my);
         if(nya.isPresent()){
-            if (!nya.get().equals(getFocused())) select((Widget)nya.get());
+            if (!(nya.get()==getFocused())) {
+                select((Widget)nya.get());
+            }
             mouseSinceTab = true;
-        } else {
-            if(getFocused() != null && mouseSinceTab) select(null);
         }
         super.mouseMoved(mx, my);
     }

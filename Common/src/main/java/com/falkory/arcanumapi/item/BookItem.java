@@ -43,23 +43,30 @@ public class BookItem extends Item {
         return super.getName($$0);
     }
 
-    //if book is used on a sign in debug mode, get the book
-    @Override public InteractionResult useOn(UseOnContext nya) {
-        if(!ArcanumAPI.LOG.isDebugEnabled() || nya.getPlayer() == null) return super.useOn(nya);
+    @Override public InteractionResult useOn(UseOnContext ctx) {
+        if(ArcanumAPI.LOG.isDebugEnabled()) debugGetBook(ctx);
+        return super.useOn(ctx);
+    }
 
-        nya.getItemInHand();
-        BlockEntity eepy = nya.getLevel().getBlockEntity(nya.getClickedPos());
+    private void debugGetBook(UseOnContext ctx){
+        if(ctx.getPlayer() == null) return;
+        BlockEntity block = ctx.getLevel().getBlockEntity(ctx.getClickedPos());
+        if (block == null || block.getType() != BlockEntityType.SIGN) return;
+        SignBlockEntity signBlock = (SignBlockEntity) block;
 
-        if (eepy != null && eepy.getType() == BlockEntityType.SIGN) {
-            SignBlockEntity seepy = (SignBlockEntity) eepy;
+        //collects the messages and makes sure they're a valid resource location
+        StringBuilder messages = new StringBuilder();
+        for (int i = 0; i < 4; i++) messages.append(signBlock.getMessage(i, true).getString());
+        String messageConcat = messages.toString();
+        if(!ResourceLocation.isValidResourceLocation(messageConcat)) return;
 
-            //opens the book if we have it at <signfirstline>:<signsecondline>.
-            ResourceLocation signBookId = new ResourceLocation(seepy.getMessage(0, true).getString(), seepy.getMessage(1, true).getString());
-            if(Books.BOOKS.containsKey(signBookId)){
-                SplitUtils.openBookSafe(nya.getPlayer(), signBookId, nya.getItemInHand());
-            }
+        //opens the book if we have it registered.
+        ResourceLocation signBookId = new ResourceLocation(messageConcat);
+        if(Books.BOOKS.containsKey(signBookId)){
+            SplitUtils.openBookSafe(ctx.getPlayer(), signBookId, ctx.getItemInHand());
+        } else {
+            ArcanumAPI.LOG.info("No book found at location: "+ messageConcat);
         }
-        return super.useOn(nya);
     }
 
 }

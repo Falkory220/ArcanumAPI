@@ -2,7 +2,7 @@ package com.falkory.arcanumapi.book.layers;
 
 //modified from net.arcanamod.systems.research.BackgroundLayer
 
-import com.falkory.arcanumapi.client.gui.BookMainScreen;
+import com.falkory.arcanumapi.client.gui.widget.menu.LayerWindow;
 import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.nbt.CompoundTag;
@@ -115,5 +115,5 @@ public abstract class BookLayer {
      * @param spd A combination scale/scroll multiplication factor. <br>
      * 1.0 is at true scale when zoomed out, 2.0 is double size. Values less than 1.0 will cause issues. */
     //todo look into the zoom < 1.0f render issues, it shouldn't break *that* hard
-    public abstract void render(PoseStack stack, BookMainScreen parent, float frameMax, float spd);
+    public abstract void render(PoseStack stack, LayerWindow parent, float frameMax, float spd);
 }

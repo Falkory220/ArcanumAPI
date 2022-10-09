@@ -128,28 +128,28 @@
       "in": "arcana:illustrious_basics",
       "type": "arcanumapi:image",
       "image": "arcana:research/nightsky/nightsky_0",
-      "speed": 0.65
+      "speed": 1.05
     },
     {
       "key": "arcana:nightsky_bg_1",
       "in": "arcana:illustrious_basics",
       "type": "arcanumapi:image",
       "image": "arcana:research/nightsky/nightsky_1",
-      "speed": 0.65
+      "speed": 1.05
     },
     {
       "key": "arcana:nightsky_bg_4",
       "in": "arcana:illustrious_basics",
       "type": "arcanumapi:image",
       "image": "arcana:research/nightsky/nightsky_4",
-      "speed": 0.8
+      "speed": 1.2
     },
     {
       "key": "arcana:nightsky_bg_3",
       "in": "arcana:illustrious_basics",
       "type": "arcanumapi:image",
       "image": "arcana:research/nightsky/nightsky_3",
-      "speed": 0.9
+      "speed": 1.3
     },
     {
       "key": "arcana:nightsky_bg_2",

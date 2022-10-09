@@ -1,12 +1,11 @@
-package com.falkory.arcanumapi.client.gui.widgets;
+package com.falkory.arcanumapi.client.gui.widget.menu;
 
 import com.falkory.arcanumapi.book.BookMain;
 import com.falkory.arcanumapi.book.BookTab;
-import com.falkory.arcanumapi.client.gui.BookMainScreen;
+import com.falkory.arcanumapi.client.gui.widget.BookTabButton;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,7 +18,7 @@ import java.util.Deque;
  * */
 public class BookTabList extends LayeredWidgetHolder {
     BookMain book;
-    Screen parentScreen;
+    LayerWindow parentScreen;
 
     //Tabs are x24 textures // todo make dynamic at some point? consider divide by zoom times preferred scale
     protected final int buttonHeight = 24;
@@ -28,12 +27,9 @@ public class BookTabList extends LayeredWidgetHolder {
     protected final int xSpace = 18;
     protected final int ySpace = 26;
 
-    public BookTabList(BookMainScreen parent){
+    public BookTabList(LayerWindow parent){
         this.book = parent.getBook();
         parentScreen = parent;
-
-        makeButtons();
-        positionButtons();
     }
 
     private void makeButtons(){
@@ -48,17 +44,17 @@ public class BookTabList extends LayeredWidgetHolder {
 
     private void positionButtons(){
         //TODO temp but it's funny while it lasts, make it take a tabacceptor or smth as a parameter and push its stuff to that maybe
-        setPos(0, BookMainScreen.minBookY);
-        width = BookMainScreen.minBookX;
-        height = BookMainScreen.bookHeight;
+        setPos(0, parentScreen.y);
+        width = parentScreen.x;
+        height = parentScreen.height;
 
         int expectedColumns = (int) Math.ceil(((renderables.size()*ySpace) + buttonHeight)/(float)height);
         expectedColumns = (int) Math.ceil((((renderables.size()+expectedColumns-2)*ySpace) + buttonHeight)/(float)height);
         int neededSpace = -width +(expectedColumns * xSpace) + xSpace;
         if(neededSpace > 0){
-            BookMainScreen.bookWidth -= neededSpace;
-            BookMainScreen.minBookX += neededSpace;
-            width = BookMainScreen.minBookX;
+            parentScreen.width -= neededSpace;
+            parentScreen.x += neededSpace;
+            width = parentScreen.x;
         }
 
         float tabOffset = 0;
@@ -71,8 +67,8 @@ public class BookTabList extends LayeredWidgetHolder {
                 tabOffset = (int)Math.ceil(ySpace*left/expectedColumns);
             }
             tab.setWidth(tab.getWidth() + (int)left*xSpace);
-            tab.x = -tab.getWidth() + this.getX() + width;
-            tab.y = this.getY() + (int)tabOffset;
+            tab.x = -tab.getWidth() + this.x + width;
+            tab.y = this.y + (int)tabOffset;
 
             tabOffset += ySpace;
         }
@@ -80,12 +76,16 @@ public class BookTabList extends LayeredWidgetHolder {
 
     /**@param widget the widget to select. If given null, selects the book's current tab instead.*/
     @Override public void select(@Nullable Widget widget) {
-        if(widget == null) for(Widget w : renderables) if(((BookTabButton)w).getLink() == book.getTabKey()) {widget = w; break;} // my code is smooth, like my brain :3
+        // my code is smooth, like my brain :3
+        if(widget == null && false) widget = renderables.stream()
+          .filter(w -> ((BookTabButton)w).getLink() == book.getTabKey())
+          .findFirst().orElse(null);
         super.select(widget);
     }
 
     @Override protected void init() {
         super.init();
+        makeButtons();
         positionButtons();
     }
 
