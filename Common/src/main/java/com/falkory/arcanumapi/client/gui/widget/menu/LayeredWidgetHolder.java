@@ -72,11 +72,6 @@ public class LayeredWidgetHolder extends Subscreen {
         while(iterator.hasPrevious()) iterator.previous().render(poseStack, mx, my, v);
     }
 
-    //mojang whyyy
-    @Override public boolean changeFocus(boolean $$0) {
-        return super.changeFocus($$0);
-    }
-
     //Screen
     /**
      * Intercepts widget clearing to make sure we clear our local {@link LayeredWidgetHolder#renderables} list when needed.

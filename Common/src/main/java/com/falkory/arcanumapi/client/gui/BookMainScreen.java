@@ -33,9 +33,7 @@ public class BookMainScreen extends BookScreen {
     }
 
 
-    //TODO: zoom in @ mouse position
     @Override public boolean mouseScrolled(double mouseX, double mouseY, double scroll) { //I hereby propose a new zoom schema ! 1 is as far as it can zoom out, as in 1:1. any zoom is how much it's amplified from max distance
-
         return super.mouseScrolled(mouseX, mouseY, scroll);
     }
 

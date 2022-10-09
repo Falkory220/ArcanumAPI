@@ -50,7 +50,6 @@ public abstract class MultiScreen extends LayeredWidgetHolder {
     /**Probably omitted from {@link net.minecraft.client.gui.components.events.ContainerEventHandler ContainerEventHandler} for valid reasons*/
     @Override public void mouseMoved(double mx, double my) {
         for (Subscreen a : subscreens) a.mouseMoved(mx, my);
-        super.mouseMoved(mx, my);
     }
 
     @Override public void afterMouseAction() {

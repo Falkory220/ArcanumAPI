@@ -8,9 +8,10 @@ import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class LayerWindowFramed extends LayerWindow{
-    private ResourceLocation frameTexture;
+    private final ResourceLocation frameTexture;
     protected static final String SUFFIX_FRAME = "/frame.png";
     protected static final String PREFIX_FRAME = "textures/arcanumthemes/";
+    protected int bump;
 
     public LayerWindowFramed(BookMain book) {
         super(book);
@@ -25,7 +26,7 @@ public class LayerWindowFramed extends LayerWindow{
         final int frameSize = 69;
         final int frameLength = 2;
         final int boxWidth = frameSize*2 + frameLength;
-        final int bump = 5;
+        bump = 5;
 
 
         int cornerL = x-bump;
@@ -37,21 +38,23 @@ public class LayerWindowFramed extends LayerWindow{
         RenderSystem.blendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
         setBlitOffset(2);
         // draw edges, order: U, D, L, R
-        ClientGuiUtils.drawStreched(stack, x+frameSize-bump, cornerU, width-(frameSize-bump)*2, frameSize, getBlitOffset(), frameSize, 0,                     frameLength, frameSize);
-        ClientGuiUtils.drawStreched(stack, x+frameSize-bump, cornerD, width-(frameSize-bump)*2, frameSize, getBlitOffset(), frameSize, frameSize+frameLength, frameLength, frameSize);
-        ClientGuiUtils.drawStreched(stack, cornerL, y+frameSize-bump, frameSize, height-(frameSize-bump)*2, getBlitOffset(), 0, frameSize,                     frameSize, frameLength);
-        ClientGuiUtils.drawStreched(stack, cornerR, y+frameSize-bump, frameSize, height-(frameSize-bump)*2, getBlitOffset(), frameSize+frameLength, frameSize, frameSize, frameLength);
+        ClientGuiUtils.drawStreched(stack, cornerL+frameSize, cornerU, width-(frameSize-bump)*2, frameSize, getBlitOffset(), frameSize, 0,                     frameLength, frameSize);
+        ClientGuiUtils.drawStreched(stack, cornerL+frameSize, cornerD, width-(frameSize-bump)*2, frameSize, getBlitOffset(), frameSize, frameSize+frameLength, frameLength, frameSize);
+        ClientGuiUtils.drawStreched(stack, cornerL, cornerU+frameSize, frameSize, height-(frameSize-bump)*2, getBlitOffset(), 0, frameSize,                     frameSize, frameLength);
+        ClientGuiUtils.drawStreched(stack, cornerR, cornerU+frameSize, frameSize, height-(frameSize-bump)*2, getBlitOffset(), frameSize+frameLength, frameSize, frameSize, frameLength);
 
         // draw corners, order: LU, RU, LD, RD
+        // blit function takes (pos x, pos y, render z, texture u, texture v, draw width, draw height, texture size, texture size)
         blit(stack, cornerL, cornerU, getBlitOffset(), 0, 0,                                         frameSize, frameSize, textureSize, textureSize);
         blit(stack, cornerR, cornerU, getBlitOffset(), frameSize+frameLength, 0,                     frameSize, frameSize, textureSize, textureSize);
         blit(stack, cornerL, cornerD, getBlitOffset(), 0, frameSize+frameLength,                     frameSize, frameSize, textureSize, textureSize);
         blit(stack, cornerR, cornerD, getBlitOffset(), frameSize+frameLength, frameSize+frameLength, frameSize, frameSize, textureSize, textureSize);
 
-        // draw decor, order: U, D, L, R ()
+        // draw decor, order: U, D, L, R
+        // blit function takes (pos x, pos y, render z, texture u, texture v, draw width, draw height, texture size, texture size)
         final int decoWidth = 58;
         blit(stack, x+(width -boxWidth)/2, cornerU, getBlitOffset(), 0, boxWidth, boxWidth, decoWidth, textureSize, textureSize);
-        blit(stack, x+(width -boxWidth)/2, cornerD+(frameSize-(decoWidth+frameLength)), getBlitOffset(), 0, boxWidth+decoWidth, boxWidth, decoWidth, textureSize, textureSize);
+        blit(stack, x+(width -boxWidth)/2, cornerD+(frameSize-decoWidth), getBlitOffset(), 0, boxWidth+decoWidth, boxWidth, decoWidth, textureSize, textureSize);
         blit(stack, cornerL, y+(height-boxWidth)/2, getBlitOffset(), boxWidth, 0, decoWidth, boxWidth, textureSize, textureSize);
         blit(stack, cornerR+(frameSize-(decoWidth)), y+(height-boxWidth)/2, getBlitOffset(), boxWidth+decoWidth, 0, decoWidth, boxWidth, textureSize, textureSize);
     }
