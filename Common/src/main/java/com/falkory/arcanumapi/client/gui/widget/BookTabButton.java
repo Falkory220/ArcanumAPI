@@ -4,6 +4,7 @@ package com.falkory.arcanumapi.client.gui.widget;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.book.BookMain;
+import com.falkory.arcanumapi.client.gui.ClientGuiUtils;
 import com.falkory.arcanumapi.client.gui.widget.menu.BookTabList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,6 +14,7 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
+import org.lwjgl.opengl.GL11;
 
 /**
  * A button that links to a {@link com.falkory.arcanumapi.book.BookTab BookTab} in its {@link BookMain}.
@@ -35,7 +37,7 @@ public class BookTabButton extends BookButton {
      * @param width The button's width.
      * @param message Narration message. Appears to be unused currently.*/
     public BookTabButton(BookMain book, ResourceLocation link, int x, int y, int width, Component message) {
-        super(book, book.getTab(link).icon(), x, y, width, 24, message);
+        super(book, book.getTab(link).getIcons(), x, y, width, 24, message);
         this.link = link;
         buttonBg = new ResourceLocation(book.key().getNamespace(), TAB_LOC+book.key().getPath()+TAB_SUFFIX);
     }
@@ -45,25 +47,28 @@ public class BookTabButton extends BookButton {
     }
 
     @Override protected void renderBg(@NotNull PoseStack stack, @NotNull Minecraft $$1, int $$2, int $$3) {
-        if(book.getTabKey() == link) {hoverBump = 10;}
-        else if(hoverBump < 5 && isFocused()) {hoverBump++;}
-        else if(hoverBump > 0 && !isFocused()) {hoverBump--;}
-
         RenderSystem.setShaderColor(1f,1f,1f,1f);
         RenderSystem.setShaderTexture(0, buttonBg);
-        blit(stack, x-hoverBump, y, 1, 0, 0, Math.min(width+hoverBump, 48), 24, 72, 24);
         for(int drawWidth = 24; (drawWidth += 24) < width+hoverBump;) {
-            blit(stack, x + drawWidth - hoverBump, y, -10, 48, 0, Math.max(0, width - drawWidth + hoverBump), 24, 72, 24);
+            //draw tail first - just in case draw order comes up
+            blit(stack, x + drawWidth - hoverBump, y, getBlitOffset()*2, 48, 0, Math.max(0, width - drawWidth + hoverBump), 24, 72, 24);
         }
+        //draw tab head
+        blit(stack, x-hoverBump, y, getBlitOffset()*2, 0, 0, Math.min(width+hoverBump, 48), 24, 72, 24);
         super.renderBg(stack, $$1, $$2, $$3);
     }
     @Override public void renderButton(PoseStack stack, int $$1, int $$2, float $$3) {
         if(!visible) return;
 
+        if(book.getTabKey() == link) {hoverBump = 10;}
+        else if(hoverBump < 5 && isFocused()) {hoverBump++;}
+        else if(hoverBump > 0 && !isFocused()) {hoverBump--;}
+
+        RenderSystem.enableDepthTest();
+        RenderSystem.enableBlend();
         renderBg(stack, Minecraft.getInstance(), $$1, $$2);
-        RenderSystem.setShaderColor(1f,1f,1f,1f);
-        RenderSystem.setShaderTexture(0, getIcon());
-        blit(stack, x + height-18-hoverBump, y + ((height-16)/2), 1, 0, 0, 16, 16, 16, 16);
+        //renders our icon. *2 gives us enough room for a bed to render happily with no (visible) clipping.
+        ClientGuiUtils.renderIcon(stack, getIcon(), x+height-18-hoverBump, y + ((height-16)/2), getBlitOffset()*2);
     }
 
     @Override public void onPress() {

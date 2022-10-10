@@ -21,46 +21,46 @@
     {
       "key": "arcana:fundamentals",
       "in": "arcana:arcanum",
-      "icon": "arcana:research/haha_funny_debug_texture_go_missing_image.png",
+      "icons": ["arcana:research/haha_funny_debug_texture_go_missing_image.png"],
       "name": "research.arcana.category.fundamentals"
     },
     {
       "key": "arcana:alchemy",
       "in": "arcana:arcanum",
-      "icon": "arcana:item/crucible_item.png",
+      "icons": ["arcana:item/crucible_item.png"],
       "name": "research.arcana.category.alchemy",
       "requires": "arcana:alchemy"
     },
     {
       "key": "arcana:auromancy",
       "in": "arcana:arcanum",
-      "icon": "arcana:item/focus_parts.png",
+      "icons": ["arcana:item/focus_parts.png"],
       "name": "research.arcana.category.auromancy",
       "requires": "arcana:wandcraft"
     },
     {
       "key": "arcana:wandcraft",
       "in": "arcana:arcanum",
-      "icon": "arcana:item/basicwand.png",
+      "icons": ["arcana:item/basicwand.png"],
       "name": "research.arcana.category.wandcraft",
       "requires": "arcana:wandcraft"
     },
     {
       "key": "arcana:tainted_basics",
       "in": "arcana:tainted_codex",
-      "icon": "arcana:research/tainted_basics.png",
+      "icons": ["arcana:research/tainted_basics.png"],
       "name": "research.arcana.category.taint"
     },
     {
       "key": "arcana:crimson_basics",
       "in": "arcana:crimson_rites",
-      "icon": "arcana:research/crimson_basics.png",
+      "icons": ["arcana:research/crimson_basics.png"],
       "name": "research.arcana.category.crimson"
     },
     {
       "key": "arcana:illustrious_basics",
       "in": "arcana:illustrious_grimoire",
-      "icon": "arcana:research/illustrious_basics.png",
+      "icons": ["arcana:research/illustrious_basics.png"],
       "name": "research.arcana.category.illustrious"
     }
   ],
@@ -113,14 +113,14 @@
       "key": "arcana:tainted_basics_bg",
       "in": "arcana:tainted_basics",
       "type": "arcanumapi:image",
-      "icon": "arcana:research/tainted_basics.png",
+      "icons": ["arcana:research/tainted_basics.png"],
       "image": "arcana:research/tainted_bg"
     },
     {
       "key": "arcana:crimson_basics_bg",
       "in": "arcana:crimson_basics",
       "type": "arcanumapi:image",
-      "icon": "arcana:research/crimson_basics.png",
+      "icons": ["arcana:research/crimson_basics.png"],
       "image": "arcana:research/eldritch_bg"
     },
     {

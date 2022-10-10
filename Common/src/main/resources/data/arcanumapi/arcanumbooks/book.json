@@ -9,13 +9,13 @@
     {
       "key": "arcanumapi:overworld",
       "in": "arcanumapi:arcanum",
-      "icon": "arcanumapi:item/arcanum.png",
+      "icons": ["arcanumapi:arcanum"],
       "name": "research.arcanumapi.category.overworld"
     },
     {
       "key": "arcanumapi:eldritch",
       "in": "arcanumapi:arcanum",
-      "icon": "minecraft:item/coal.png",
+      "icons": ["minecraft:coal_block"],
       "name": "research.arcanumapi.category.eldritch"
     }
   ],

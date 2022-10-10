@@ -2,6 +2,7 @@ package com.falkory.arcanumapi.client.gui.widget.menu;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
@@ -38,6 +39,7 @@ public class LayeredWidgetHolder extends Subscreen {
      * */
     public <T extends GuiEventListener & Widget & NarratableEntry> T addLayeredWidget(T widget){
         this.renderables.add(widget);
+        ((GuiComponent)widget).setBlitOffset(this.getBlitOffset()-this.renderables.size());
         return addRenderableWidget(widget);
     }
 
@@ -46,10 +48,7 @@ public class LayeredWidgetHolder extends Subscreen {
      * @param widget {@link Widget} to focus. Can be nulled to focus nothing.
      * */
     public void select(@Nullable Widget widget){
-        if(widget == getFocused()) {
-            ArcanumAPI.LOG.info("tried to select already selected tab");
-            return;
-        }
+        if(widget == getFocused()) return;
         mouseSinceTab = false;
         if(getFocused() != null) {
             // we always unfocus current if possible before selecting new
@@ -89,6 +88,8 @@ public class LayeredWidgetHolder extends Subscreen {
                 select((Widget)nya.get());
             }
             mouseSinceTab = true;
+        } else if(mouseSinceTab) {
+             select(null);
         }
         super.mouseMoved(mx, my);
     }

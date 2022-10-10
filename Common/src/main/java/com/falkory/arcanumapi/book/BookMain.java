@@ -81,6 +81,10 @@ public class BookMain {
      * Gets called for each registered book after all books are loaded.
      * */
     protected void init(){
+        if(tabs.size() < 1) {
+            ArcanumAPI.LOG.error("Failed to set initial tab for "+key+", it had no tabs registered!");
+            return;
+        }
         this.setTabKey(tabs.keySet().iterator().next());
     }
 }

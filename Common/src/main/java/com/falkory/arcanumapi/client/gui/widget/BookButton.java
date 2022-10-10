@@ -1,6 +1,9 @@
 package com.falkory.arcanumapi.client.gui.widget;
 
 import com.falkory.arcanumapi.book.BookMain;
+import com.falkory.arcanumapi.book.Icon;
+import com.falkory.arcanumapi.book.IconsHaver;
+import com.falkory.arcanumapi.client.gui.ClientGuiUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -9,23 +12,23 @@ import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 
-/**A simple button that has a 16x16 icon and knows which book it's in. */
-public abstract class BookButton extends AbstractWidget {
-    protected final BookMain book;
-    //todo make into an Icon object
-    private final ResourceLocation icon;
+import java.util.List;
 
-    protected BookButton(BookMain book, ResourceLocation icon, int x, int y, int width, int height, Component component) {
+/**A simple button that has a 16x16 icon and knows which book it's in. */
+public abstract class BookButton extends AbstractWidget implements IconsHaver {
+    protected final BookMain book;
+    private final List<Icon> icons;
+
+    protected BookButton(BookMain book, List<Icon> icons, int x, int y, int width, int height, Component component) {
         super(x, y, width, height, component);
         this.book = book;
-        this.icon = icon;
+        this.icons = icons;
     }
 
-    protected ResourceLocation getIcon(){
-        return icon;
+    public List<Icon> getIcons(){
+        return icons;
     }
 
     /**@see net.minecraft.client.gui.components.AbstractButton#onClick(double, double) AbstractButton.onClick(double x, double y)*/
@@ -41,9 +44,10 @@ public abstract class BookButton extends AbstractWidget {
         if(!visible) return;
 
         renderBg(stack, Minecraft.getInstance(), $$1, $$2);
-        RenderSystem.setShaderColor(1f,1f,1f,1f);
-        RenderSystem.setShaderTexture(0, icon);
-        blit(stack, x + height-18, y + ((height-16)/2), 1, 0, 0, 16, 16, 16, 16);
+        ClientGuiUtils.renderIcon(stack, getIcon(), x + height-18, y + ((height-16)/2), getBlitOffset());
+        //RenderSystem.setShaderColor(1f,1f,1f,1f);
+        //RenderSystem.setShaderTexture(0, getIcon());
+        //blit(stack, x + height-18, y + ((height-16)/2), 1, 0, 0, 16, 16, 16, 16);
     }
 
     @Override public void updateNarration(NarrationElementOutput narrationElementOutput) {}

@@ -77,7 +77,7 @@ public class BookTabList extends LayeredWidgetHolder {
     /**@param widget the widget to select. If given null, selects the book's current tab instead.*/
     @Override public void select(@Nullable Widget widget) {
         // my code is smooth, like my brain :3
-        if(widget == null && false) widget = renderables.stream()
+        if(widget == null) widget = renderables.stream()
           .filter(w -> ((BookTabButton)w).getLink() == book.getTabKey())
           .findFirst().orElse(null);
         super.select(widget);

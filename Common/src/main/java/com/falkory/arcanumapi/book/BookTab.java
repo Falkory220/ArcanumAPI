@@ -18,25 +18,26 @@ import java.util.stream.Stream;
 
 import static com.falkory.arcanumapi.ArcanumCommon.AmId;
 
-public class BookTab {
+public class BookTab implements IconsHaver{
     
     private BookMain in;
     private String name; //TODO should be a translatable, yeah?
     private ResourceLocation key;
 
-    private ResourceLocation icon, requirement;
+    private List<Icon> icons;
+    private ResourceLocation requirement;
     protected Map<ResourceLocation, BookLayer> layers;
 
     // this instance's position in the load order! (i get it now I'm sorry luna)
     protected int serializationIndex = 0;
 
     @ParametersAreNonnullByDefault
-    public BookTab(ResourceLocation key, Map<ResourceLocation, BookLayer> layers, ResourceLocation icon, ResourceLocation requirement, String name, BookMain in){
+    public BookTab(ResourceLocation key, Map<ResourceLocation, BookLayer> layers, List<Icon> icons, ResourceLocation requirement, String name, BookMain in){
         this.layers = layers;
         this.key = key;
         this.requirement = requirement;
         this.in = in;
-        this.icon = icon;
+        this.icons = icons;
         this.name = name;
     }
 
@@ -57,10 +58,6 @@ public class BookTab {
 
     public BookMain book(){
         return in;
-    }
-
-    public ResourceLocation icon(){
-        return icon;
     }
 
     public String name(){
@@ -92,6 +89,10 @@ public class BookTab {
         ResourceLocation unfoundImage = AmId("textures/gui/book/tab_not_found.png");
         HashMap<ResourceLocation, BookLayer> layermap = new HashMap<>();
         layermap.put(new ResourceLocation("unfound_layer"), new ImageLayer(unfoundImage.toString()));
-        return new BookTab(AmId("tab_not_found"), layermap, unfoundImage, null, "Tab not found", Books.BOOKS.get(AmId("arcanum")));
+        return new BookTab(AmId("tab_not_found"), layermap, new ArrayList<>(), null, "Tab not found", Books.BOOKS.get(AmId("arcanum")));
+    }
+
+    @Override public List<Icon> getIcons() {
+        return icons;
     }
 }

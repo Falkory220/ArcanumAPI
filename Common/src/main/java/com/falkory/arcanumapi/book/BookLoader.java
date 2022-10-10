@@ -65,10 +65,12 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
             else{
                 JsonObject tab = categoryElement.getAsJsonObject();
 
-                // expecting key, in, icon
+                // expecting key, in, icons
+                if(!parseIsSafe("tab", tab, rl, "key","in","icons")){continue;}
+
                 ResourceLocation key = new ResourceLocation(tab.get("key").getAsString());
-                ResourceLocation icon = new ResourceLocation(tab.get("icon").getAsString());
-                icon = new ResourceLocation(icon.getNamespace(), "textures/" + icon.getPath());
+                List<Icon> icon = idsToIcons(tab.getAsJsonArray("icons"), rl);//new ResourceLocation(tab.get("icon").getAsString());
+                //icon = new ResourceLocation(icon.getNamespace(), "textures/" + icon.getPath());
                 String name = tab.get("name").getAsString();
                 ResourceLocation requirement = tab.has("requires") ? new ResourceLocation(tab.get("requires").getAsString()) : null;
                 BookMain in = Books.BOOKS.get(new ResourceLocation(tab.get("in").getAsString()));
@@ -119,7 +121,11 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
             if(inObj.isJsonArray()) for(JsonElement i :layerObj.getAsJsonArray("in")) in.add(new ResourceLocation(i.getAsString()));
             else in.add(new ResourceLocation(inObj.getAsString()));
 
-            for(ResourceLocation t : in) Books.getTab(t).layers.put(layer.key(), layer);
+            for(ResourceLocation t : in) {
+                BookTab gotTab = Books.getTab(t);
+                if(gotTab != null) gotTab.layers.put(layer.key(), layer);
+                else LOG.error("Layer "+layer.key()+" is bound to unreachable or nonexistent tab "+t+" in file "+rl+"!");
+            }
 
         }
     }
