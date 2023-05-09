@@ -1,11 +1,13 @@
 package com.falkory.arcanumapi;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
+import com.falkory.arcanumapi.config.ModConfig;
 import com.falkory.arcanumapi.item.BookItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -27,6 +29,7 @@ public class ArcanumForge {
         // This method is invoked by the Forge mod loader when it is ready
         // to load your mod. You can access Forge and Common code in this
         // project.
+        ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.COMMON, ModConfig.GENERAL_SPEC, "arcanumAPI.toml");
     
         // Use Forge to bootstrap the Common mod.
         ArcanumAPI.LOG.info("Hello Forge world!");
@@ -43,11 +46,14 @@ public class ArcanumForge {
         event.register(ForgeRegistries.Keys.ITEMS, nya -> {
             BookItems.releaseBooks(registrar(nya));
         });
+
     }
     @SubscribeEvent
     public void addReloadListeners(AddReloadListenerEvent event){
         event.addListener(ArcanumCommon.startBookLoader());
     }
+
+
 
 
     private static <T> BiConsumer<T, ResourceLocation> registrar(RegisterEvent.RegisterHelper<T> hinderer){

@@ -28,6 +28,9 @@
     "entrypoints": {
       "main": [
         "com.falkory.arcanumapi.ArcanumFabric"
+      ],
+      "modmenu": [
+        "com.falkory.arcanumapi.config.ModMenu"
       ]
     },
     "mixins": [],

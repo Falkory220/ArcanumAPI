@@ -2,7 +2,10 @@ package com.falkory.arcanumapi;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.falkory.arcanumapi.bookdata.BookLoadListener;
+import com.falkory.arcanumapi.config.ModConfig;
 import com.falkory.arcanumapi.item.BookItems;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.Registry;
@@ -25,6 +28,7 @@ public class ArcanumFabric implements ModInitializer {
         // This method is invoked by the Fabric mod loader when it is ready
         // to load your mod. You can access Fabric and Common code in this
         // project.
+        AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new);
 
         // Use Fabric to bootstrap the Common mod.
         ArcanumAPI.LOG.info("Hello Fabric world!");
