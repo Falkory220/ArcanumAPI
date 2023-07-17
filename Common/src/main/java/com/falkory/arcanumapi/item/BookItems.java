@@ -30,8 +30,9 @@ public class BookItems {
         }
     }
 
+    //TODO: I removed the tab to update it to 1.20.1 we should probably add that back
     static {
-        bookProperties = new Item.Properties().stacksTo(1).tab(CreativeModeTab.TAB_MISC).rarity(Rarity.UNCOMMON);
+        bookProperties = new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON);
         ARCANUM_ITEM = stockBook(new ResourceLocation("arcanumapi","arcanum"), new BookItem(bookProperties, new ResourceLocation("arcanumapi", "arcanum")));
     }
 }

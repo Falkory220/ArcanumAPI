@@ -2,6 +2,7 @@ package com.falkory.arcanumapi.book.content.requirements;
 
 import com.falkory.arcanumapi.book.Requirement;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -18,7 +19,7 @@ public class ItemTagRequirement extends Requirement {
     public static final ResourceLocation TYPE = AmId("item_tag");
 
     public ItemTagRequirement(ResourceLocation tagName){
-        this(TagKey.create(Registry.ITEM_REGISTRY, tagName), tagName);
+        this(TagKey.create(Registries.ITEM, tagName), tagName);
     }
 
     public ItemTagRequirement(TagKey<Item> tag, ResourceLocation tagName){

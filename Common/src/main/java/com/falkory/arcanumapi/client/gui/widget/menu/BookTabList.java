@@ -3,7 +3,7 @@ package com.falkory.arcanumapi.client.gui.widget.menu;
 import com.falkory.arcanumapi.book.BookMain;
 import com.falkory.arcanumapi.book.BookTab;
 import com.falkory.arcanumapi.client.gui.widget.BookTabButton;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
@@ -60,22 +60,22 @@ public class BookTabList extends LayeredWidgetHolder {
         float tabOffset = 0;
         float left = 0;
 
-        for(Deque<Widget> tabButtons = new ArrayDeque<>(renderables); !tabButtons.isEmpty();){
+        for(Deque<AbstractWidget> tabButtons = new ArrayDeque<>(renderables); !tabButtons.isEmpty();){
             BookTabButton tab = (BookTabButton)tabButtons.pop();
             if(tabOffset+ tab.getHeight() > height) {
                 left += 1;
                 tabOffset = (int)Math.ceil(ySpace*left/expectedColumns);
             }
             tab.setWidth(tab.getWidth() + (int)left*xSpace);
-            tab.x = -tab.getWidth() + this.x + width;
-            tab.y = this.y + (int)tabOffset;
+            tab.setX(-tab.getWidth() + this.x + width);
+            tab.setY(this.y + (int)tabOffset);
 
             tabOffset += ySpace;
         }
     }
 
     /**@param widget the widget to select. If given null, selects the book's current tab instead.*/
-    @Override public void select(@Nullable Widget widget) {
+    @Override public void select(@Nullable AbstractWidget widget) {
         // my code is smooth, like my brain :3
         if(widget == null) widget = renderables.stream()
           .filter(w -> ((BookTabButton)w).getLink() == book.getTabKey())

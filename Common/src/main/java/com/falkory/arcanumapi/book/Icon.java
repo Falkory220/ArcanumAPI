@@ -4,6 +4,7 @@ package com.falkory.arcanumapi.book;
 
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.TagParser;
@@ -49,7 +50,7 @@ public class Icon {
     }
 
     public Icon(ItemStack stack){
-        this.resourceLocation = Registry.ITEM.getKey(stack.getItem());
+        this.resourceLocation = BuiltInRegistries.ITEM.getKey(stack.getItem());
         this.stack = stack;
     }
 
@@ -77,8 +78,8 @@ public class Icon {
         }
         // Check if there's an item that corresponds to the ID.
         ResourceLocation key = new ResourceLocation(string);
-        if(Registry.ITEM.containsKey(key)){
-            Item item = Registry.ITEM.get(key);
+        if(BuiltInRegistries.ITEM.containsKey(key)){
+            Item item = BuiltInRegistries.ITEM.get(key);
             ItemStack stack = new ItemStack(item);
             // Apply NBT, if any.
             if(tag != null)

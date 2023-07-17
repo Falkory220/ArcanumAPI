@@ -2,6 +2,7 @@ package com.falkory.arcanumapi.book.content.requirements;
 
 import com.falkory.arcanumapi.book.Requirement;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -36,7 +37,7 @@ public class ItemRequirement extends Requirement {
 
     public CompoundTag data(){
         CompoundTag compound = new CompoundTag();
-        compound.putString("itemType", String.valueOf(Registry.ITEM.getKey(item)));
+        compound.putString("itemType", String.valueOf(BuiltInRegistries.ITEM.getKey(item)));
         return compound;
     }
 

@@ -6,6 +6,7 @@ import com.falkory.arcanumapi.book.content.requirements.ItemRequirement;
 import com.falkory.arcanumapi.book.content.requirements.ItemTagRequirement;
 import com.falkory.arcanumapi.book.content.requirements.XpRequirement;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -44,7 +45,7 @@ public abstract class Requirement {
 
     public static void init(){
         // item and item tag requirement creation is handled by ResearchLoader -- an explicit form may be useful though.
-        deserializers.put(ItemRequirement.TYPE, compound -> new ItemRequirement(Registry.ITEM.get(new ResourceLocation(compound.getString("itemType")))));
+        deserializers.put(ItemRequirement.TYPE, compound -> new ItemRequirement(BuiltInRegistries.ITEM.get(new ResourceLocation(compound.getString("itemType")))));
         deserializers.put(ItemTagRequirement.TYPE, compound -> new ItemTagRequirement(new ResourceLocation(compound.getString("itemTag"))));
         // everything else needs a factory registered
         factories.put(XpRequirement.TYPE, __ -> new XpRequirement());

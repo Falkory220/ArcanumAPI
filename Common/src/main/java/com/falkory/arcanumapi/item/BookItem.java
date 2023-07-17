@@ -56,7 +56,7 @@ public class BookItem extends Item {
 
         //collects the messages and makes sure they're a valid resource location
         StringBuilder messages = new StringBuilder();
-        for (int i = 0; i < 4; i++) messages.append(signBlock.getMessage(i, true).getString());
+        for (int i = 0; i < 4; i++) messages.append(signBlock.getFrontText().getMessage(i, true).getString());
         String messageConcat = messages.toString();
         if(!ResourceLocation.isValidResourceLocation(messageConcat)) return;
 

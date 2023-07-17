@@ -5,6 +5,8 @@ package com.falkory.arcanumapi.book.content;
 import com.falkory.arcanumapi.book.BookNode;
 import com.falkory.arcanumapi.book.BookPage;
 import com.falkory.arcanumapi.book.Icon;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
@@ -40,8 +42,8 @@ public class Pin{
             Optional<? extends Recipe<?>> recipeOpt;
             if(page instanceof AbstractCraftingSection && (recipeOpt = world.getRecipeManager().byKey(((AbstractCraftingSection)page).recipe)).isPresent()){
                 Recipe<?> recipe = recipeOpt.get();
-                this.icon = new Icon(recipe.getResultItem());
-                this.result = recipe.getResultItem().getItem();
+                this.icon = new Icon(recipe.getResultItem(RegistryAccess.EMPTY));
+                this.result = recipe.getResultItem(RegistryAccess.EMPTY).getItem();
             } else {
                 this.icon = entry.icons().get(0);
             }

@@ -9,6 +9,8 @@ import com.falkory.arcanumapi.book.layers.BookLayer;
 import com.falkory.arcanumapi.book.layers.NodeLayer;
 import com.google.gson.*;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -272,7 +274,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
             }else if(desc.startsWith("#")){
                 // its a tag
                 ResourceLocation itemTagLoc = new ResourceLocation(desc.substring(1));
-                TagKey<Item> itemTag = TagKey.create(Registry.ITEM_REGISTRY, itemTagLoc);
+                TagKey<Item> itemTag = TagKey.create(Registries.ITEM, itemTagLoc);
                 // todo remove? - macy
                 if(itemTag != null){
                     ItemTagRequirement tagReq = new ItemTagRequirement(itemTag, itemTagLoc);
@@ -283,7 +285,7 @@ public class BookLoader extends SimpleJsonResourceReloadListener {
             }else{
                 // its an item
                 ResourceLocation item = new ResourceLocation(desc);
-                Item value = Registry.ITEM.get(item);
+                Item value = BuiltInRegistries.ITEM.get(item);
                 if(value != null){
                     ItemRequirement add = new ItemRequirement(value);
                     add.amount = amount;

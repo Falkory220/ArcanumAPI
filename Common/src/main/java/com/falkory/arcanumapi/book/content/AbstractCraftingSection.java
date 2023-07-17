@@ -6,6 +6,8 @@ import com.falkory.arcanumapi.book.BookNode;
 import com.falkory.arcanumapi.book.BookPage;
 import com.falkory.arcanumapi.book.Icon;
 import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -42,8 +44,8 @@ public abstract class AbstractCraftingSection extends BookPage {
         Optional<? extends Recipe<?>> recipe = world.getRecipeManager().byKey(this.recipe);
         if(recipe.isPresent()){
             // get the item as the icon
-            ItemStack output = recipe.get().getResultItem();
-            Icon icon = new Icon(Registry.ITEM.getKey(output.getItem()), output);
+            ItemStack output = recipe.get().getResultItem(RegistryAccess.EMPTY);
+            Icon icon = new Icon(BuiltInRegistries.ITEM.getKey(output.getItem()), output);
             // and return a pin that points to this
             return Stream.of(new Pin(output.getItem(), node, index, icon));
         }

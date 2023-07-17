@@ -9,6 +9,7 @@ import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 
@@ -44,7 +45,7 @@ public class ArcanumFabric implements ModInitializer {
     }
 
     private void registryStuff(){
-        BookItems.releaseBooks(registrar(Registry.ITEM));
+        BookItems.releaseBooks(registrar(BuiltInRegistries.ITEM));
     }
 
 
