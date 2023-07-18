@@ -2,8 +2,8 @@ package com.falkory.arcanumapi.client.gui.widget.menu;
 
 import com.falkory.arcanumapi.api.ArcanumAPI;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
@@ -26,7 +26,7 @@ import java.util.Optional;
  * */
 public class LayeredWidgetHolder extends Subscreen {
     /**@see Screen#renderables*/
-    protected final List<Widget> renderables = Lists.newArrayList();
+    protected final List<AbstractWidget> renderables = Lists.newArrayList();
     private boolean mouseSinceTab = false;
 
     public LayeredWidgetHolder() {
@@ -37,17 +37,17 @@ public class LayeredWidgetHolder extends Subscreen {
      * Adds a widget to our local {@link LayeredWidgetHolder#renderables} list on its way in, since {@link Screen#renderables} is private. <p>
      * Currently restricted to GuiEventListeners
      * */
-    public <T extends GuiEventListener & Widget & NarratableEntry> T addLayeredWidget(T widget){
+    public <T extends AbstractWidget & GuiEventListener & NarratableEntry> T addLayeredWidget(T widget){
         this.renderables.add(widget);
         ((GuiComponent)widget).setBlitOffset(this.getBlitOffset()-this.renderables.size());
         return addRenderableWidget(widget);
     }
 
     /**
-     * Updates the {@link LayeredWidgetHolder LayeredWidgetHolder's} focus to a contained {@link Widget widget}.
-     * @param widget {@link Widget} to focus. Can be nulled to focus nothing.
+     * Updates the {@link LayeredWidgetHolder LayeredWidgetHolder's} focus to a contained {@link AbstractWidget widget}.
+     * @param widget {@link AbstractWidget} to focus. Can be nulled to focus nothing.
      * */
-    public void select(@Nullable Widget widget){
+    public void select(@Nullable AbstractWidget widget){
         if(widget == getFocused()) return;
         mouseSinceTab = false;
         if(getFocused() != null) {
@@ -62,12 +62,12 @@ public class LayeredWidgetHolder extends Subscreen {
     }
 
     /**
-     * The {@link Widget} method. <p>
+     * The {@link AbstractWidget} method. <p>
      * Calls {@link LayeredWidgetHolder#renderables renderables'} renders in reverse creation order, so they're drawn in order of input event priority.<p>
      * Additionally, updates {@link LayeredWidgetHolder#focused} by mouse position since hover is unreliable when widgets overlap.
      * */
     @Override public void render(PoseStack poseStack, int mx, int my, float v) {
-        ListIterator<Widget> iterator = this.renderables.listIterator(this.renderables.size());
+        ListIterator<AbstractWidget> iterator = this.renderables.listIterator(this.renderables.size());
         while(iterator.hasPrevious()) iterator.previous().render(poseStack, mx, my, v);
     }
 
@@ -85,7 +85,7 @@ public class LayeredWidgetHolder extends Subscreen {
         Optional<GuiEventListener> nya = getChildAt(mx, my);
         if(nya.isPresent()){
             if (!(nya.get()==getFocused())) {
-                select((Widget)nya.get());
+                select((AbstractWidget)nya.get());
             }
             mouseSinceTab = true;
         } else if(mouseSinceTab) {

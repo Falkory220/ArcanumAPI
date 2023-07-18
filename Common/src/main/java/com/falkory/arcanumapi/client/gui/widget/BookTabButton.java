@@ -9,6 +9,7 @@ import com.falkory.arcanumapi.client.gui.widget.menu.BookTabList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.Component;
@@ -51,10 +52,10 @@ public class BookTabButton extends BookButton {
         RenderSystem.setShaderTexture(0, buttonBg);
         for(int drawWidth = 24; (drawWidth += 24) < width+hoverBump;) {
             //draw tail first - just in case draw order comes up
-            blit(stack, x + drawWidth - hoverBump, y, getBlitOffset()*2, 48, 0, Math.max(0, width - drawWidth + hoverBump), 24, 72, 24);
+            GuiGraphics.blit(stack, getX() + drawWidth - hoverBump, getY(), getBlitoffset()*2, 48, 0, Math.max(0, width - drawWidth + hoverBump), 24, 72, 24);
         }
         //draw tab head
-        blit(stack, x-hoverBump, y, getBlitOffset()*2, 0, 0, Math.min(width+hoverBump, 48), 24, 72, 24);
+        blit(stack, getX()-hoverBump, getY(), getBlitoffset()*2, 0, 0, Math.min(width+hoverBump, 48), 24, 72, 24);
         super.renderBg(stack, $$1, $$2, $$3);
     }
     @Override public void renderButton(PoseStack stack, int $$1, int $$2, float $$3) {
@@ -68,7 +69,7 @@ public class BookTabButton extends BookButton {
         RenderSystem.enableBlend();
         renderBg(stack, Minecraft.getInstance(), $$1, $$2);
         //renders our icon. *2 gives us enough room for a bed to render happily with no (visible) clipping.
-        ClientGuiUtils.renderIcon(stack, getIcon(), x+height-18-hoverBump, y + ((height-16)/2), getBlitOffset()*2);
+        ClientGuiUtils.renderIcon(stack, getIcon(), getX()+height-18-hoverBump, getY() + ((height-16)/2), getBlitOffset()*2);
     }
 
     @Override public void onPress() {
